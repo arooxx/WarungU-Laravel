@@ -203,7 +203,9 @@ class KasirController extends BaseController
 
         } catch (\Exception $e) {
             DB::rollBack();
-            return response()->json(['status' => 'error', 'pesan' => 'Gagal menyimpan: ' . $e->getMessage()]);
+            // Detail error asli hanya masuk ke storage/logs/laravel.log, tidak ditampilkan ke pengguna.
+            report($e);
+            return response()->json(['status' => 'error', 'pesan' => 'Transaksi gagal disimpan. Silakan coba lagi.']);
         }
     }
 }
