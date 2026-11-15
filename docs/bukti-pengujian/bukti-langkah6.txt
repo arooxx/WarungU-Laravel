@@ -1,0 +1,55 @@
+BUKTI PENGUJIAN LANGKAH 6 (registrasi dengan persetujuan pemilik dan aturan password)
+Lingkungan uji: PHP 8.3, MariaDB 10.11, Laravel 12.61, data awal dari DatabaseSeeder
+Skenario dijalankan otomatis dengan login dan permintaan HTTP sungguhan; hasil dicek langsung di database.
+
+CATATAN MEMBACA HASIL 'SEBELUM': pada versi lama rute pendaftaran dan persetujuan belum ada (HTTP 404).
+Skenario 6d, 6e, 6f, 6h, 6i, 6n tampak LOLOS pada versi lama HANYA karena rutenya tidak ada, bukan karena sudah aman.
+Temuan nyata pada versi lama: 6o, 6p, 6q (password lemah seperti 123456 diterima), 6k dan 6l (tidak ada status akun).
+
+################ SEBELUM PERBAIKAN (versi langkah 5) ################
+=== LANGKAH 6: registrasi dengan persetujuan pemilik dan aturan password
+GAGAL  6a halaman daftar publik tersedia  -> GET /register -> 404
+GAGAL  6b pendaftar tidak bisa menyuntik role/status/warung (hasil harus pegawai, menunggu, tanpa warung)  -> POST -> 404; tersimpan: tidak ada akun
+GAGAL  6c akun 'menunggu' tidak bisa login walau password benar, dengan pesan jelas  -> hasil=ditolak; pesan='Username atau password salah!'
+LOLOS  6d password lemah ditolak saat daftar (hanya angka, hanya huruf, terlalu pendek, kata umum, sama dengan username)  -> akun baru yang lolos: 0 dari 5
+LOLOS  6e username tidak valid/duplikat dan konfirmasi password yang beda ditolak  -> akun baru yang lolos: 0 dari 4
+LOLOS  6f persetujuan dengan warung yang tidak ada ditolak  -> POST -> 404; status=pegawai	menunggu	NULL
+GAGAL  6g pemilik menyetujui dan menentukan warung; pegawai lalu bisa login dan memakai kasir  -> POST -> 404; akun=-; login=ditolak
+LOLOS  6h pegawai biasa tidak bisa menyetujui akun (hanya pemilik)  -> POST -> 404; status=pegawai	menunggu	NULL
+LOLOS  6i tombol tolak hanya menghapus akun 'menunggu', bukan pegawai aktif  -> POST /pegawai/2/tolak (pegawai1 aktif) -> 404; pegawai1 masih ada=True
+GAGAL  6j menolak pendaftar 'menunggu' menghapus akunnya  -> POST -> 404; pegawai_baru masih ada=True
+GAGAL  6k pegawai yang dinonaktifkan langsung keluar, juga lewat cookie 'Ingat saya'  -> status=pegawai	aktif	1; /kasir sebelum=200, sesudah=200, hanya cookie ingat-saya=200
+GAGAL  6l akun nonaktif tidak bisa login baru, dengan pesan jelas  -> hasil=masuk; pesan=''
+LOLOS  6m akun diaktifkan kembali dan bisa login lagi  -> status=pegawai	aktif	1; login=masuk
+LOLOS  6n akun pemilik tidak bisa dinonaktifkan atau dihapus lewat menu pegawai  -> status-> 404, hapus-> 404; pemilik=pemilik	aktif	1
+GAGAL  6o tambah pegawai: password lemah ditolak; password kuat diterima dan langsung aktif  -> lemah masuk=True; akun kuat=pegawai	menunggu	1; login=masuk
+GAGAL  6p edit pegawai: password lemah ditolak  -> password lemah DITERIMA
+GAGAL  6q ganti password di profil: password lemah ditolak  -> password lemah DITERIMA
+LOLOS  6r ganti password di profil: password kuat diterima
+GAGAL  6s pendaftaran massal dibatasi (rate limit)  -> kode respons 8 permintaan: [404, 404, 404, 404, 404, 404, 404, 404]
+
+RINGKASAN: 8 lolos dari 19 skenario
+
+################ SESUDAH PERBAIKAN (versi langkah 6) ################
+=== LANGKAH 6: registrasi dengan persetujuan pemilik dan aturan password
+LOLOS  6a halaman daftar publik tersedia  -> GET /register -> 200
+LOLOS  6b pendaftar tidak bisa menyuntik role/status/warung (hasil harus pegawai, menunggu, tanpa warung)  -> POST -> 302; tersimpan: pegawai	menunggu	NULL
+LOLOS  6c akun 'menunggu' tidak bisa login walau password benar, dengan pesan jelas  -> hasil=ditolak; pesan='Akun Anda masih menunggu persetujuan pemilik warung.'
+LOLOS  6d password lemah ditolak saat daftar (hanya angka, hanya huruf, terlalu pendek, kata umum, sama dengan username)  -> akun baru yang lolos: 0 dari 5
+LOLOS  6e username tidak valid/duplikat dan konfirmasi password yang beda ditolak  -> akun baru yang lolos: 0 dari 4
+LOLOS  6f persetujuan dengan warung yang tidak ada ditolak  -> POST -> 302; status=pegawai	menunggu	NULL
+LOLOS  6g pemilik menyetujui dan menentukan warung; pegawai lalu bisa login dan memakai kasir  -> POST -> 302; akun=pegawai	aktif	2; login=masuk
+LOLOS  6h pegawai biasa tidak bisa menyetujui akun (hanya pemilik)  -> POST -> 302; status=pegawai	menunggu	NULL
+LOLOS  6i tombol tolak hanya menghapus akun 'menunggu', bukan pegawai aktif  -> POST /pegawai/2/tolak (pegawai1 aktif) -> 404; pegawai1 masih ada=True
+LOLOS  6j menolak pendaftar 'menunggu' menghapus akunnya  -> POST -> 302; pegawai_baru masih ada=False
+LOLOS  6k pegawai yang dinonaktifkan langsung keluar, juga lewat cookie 'Ingat saya'  -> status=pegawai	nonaktif	1; /kasir sebelum=200, sesudah=302, hanya cookie ingat-saya=302
+LOLOS  6l akun nonaktif tidak bisa login baru, dengan pesan jelas  -> hasil=ditolak; pesan='Akun Anda dinonaktifkan. Hubungi pemilik warung.'
+LOLOS  6m akun diaktifkan kembali dan bisa login lagi  -> status=pegawai	aktif	1; login=masuk
+LOLOS  6n akun pemilik tidak bisa dinonaktifkan atau dihapus lewat menu pegawai  -> status-> 404, hapus-> 404; pemilik=pemilik	aktif	1
+LOLOS  6o tambah pegawai: password lemah ditolak; password kuat diterima dan langsung aktif  -> lemah masuk=False; akun kuat=pegawai	aktif	1; login=masuk
+LOLOS  6p edit pegawai: password lemah ditolak  -> hash password tidak berubah
+LOLOS  6q ganti password di profil: password lemah ditolak  -> hash tidak berubah
+LOLOS  6r ganti password di profil: password kuat diterima
+LOLOS  6s pendaftaran massal dibatasi (rate limit)  -> kode respons 8 permintaan: [302, 302, 302, 302, 302, 429, 429, 429]
+
+RINGKASAN: 19 lolos dari 19 skenario

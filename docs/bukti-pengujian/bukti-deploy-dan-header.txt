@@ -1,0 +1,24 @@
+BUKTI PENGUJIAN KONFIGURASI DEPLOY (header keamanan, proxy HTTPS, CSP) pada versi final dengan desain mahasiswa
+Lingkungan uji: PHP 8.3, MariaDB 10.11, Laravel 12.61, Chromium tanpa kepala
+Catatan: ini uji di lingkungan lokal. Bukti di situs online (Vercel) harus diambil ulang oleh mahasiswa.
+
+=== DEPLOY: header keamanan, proxy HTTPS, dan konfigurasi produksi
+LOLOS  7a header keamanan ada di halaman login  -> hilang=[]
+LOLOS  7b CSP membatasi sumber: tanpa wildcard, tanpa object, tanpa framing  -> default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src ...
+LOLOS  7c X-Frame-Options DENY dan nosniff
+LOLOS  7d tidak membocorkan versi PHP (X-Powered-By)  -> x-powered-by=None
+LOLOS  7e tanpa HTTPS, HSTS tidak dikirim (aman untuk uji lokal)
+LOLOS  7f di belakang proxy HTTPS (Vercel), HSTS dikirim  -> max-age=31536000; includeSubDomains
+LOLOS  7h halaman terlindungi tetap mengalihkan tamu ke login dan header tetap terpasang  -> HTTP 302
+LOLOS  7i halaman 404 juga memakai header keamanan  -> HTTP 404
+LOLOS  7j endpoint kesehatan /up berfungsi (dipakai uji asap deploy)  -> HTTP 200
+
+RINGKASAN: 9 lolos dari 9 skenario
+
+=== Cookie sesi pada mode produksi (APP_ENV=production, SESSION_SECURE_COOKIE=true, di belakang proxy HTTPS)
+Set-Cookie: XSRF-TOKEN=<nilai>; expires=Sun, 15 Nov 2026 00:00:27 GMT; Max-Age=7200; path=/; secure; samesite=lax
+Set-Cookie: warungu-session=<nilai>; expires=Sun, 15 Nov 2026 00:00:27 GMT; Max-Age=7200; path=/; secure; httponly; samesite=lax
+
+=== Penelusuran semua halaman di bawah CSP dan satu transaksi nyata lewat antarmuka
+transaksi lewat UI di bawah CSP: 8 -> 9 | stok Aqua: 50 -> 49
+pelanggaran CSP / error JS: 0

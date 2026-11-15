@@ -11,6 +11,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
+        // Aplikasi berjalan di belakang proxy HTTPS (Vercel): percayai X-Forwarded-* agar IP, skema, dan HSTS benar
+        $middleware->trustProxies(at: '*');
+        $middleware->append(\App\Http\Middleware\SecurityHeaders::class);
+
         // Daftarkan alias middleware 'pemilik'
         $middleware->alias([
             'pemilik' => \App\Http\Middleware\PemilikMiddleware::class,

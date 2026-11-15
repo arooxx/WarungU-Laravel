@@ -1,0 +1,31 @@
+BUKTI PENGUJIAN LANGKAH 4 (pengamanan login dan sesi)
+Lingkungan uji: PHP 8.3, MariaDB 10.11, Laravel 12.61, data awal dari DatabaseSeeder
+Skenario dijalankan otomatis dengan login dan permintaan HTTP sungguhan.
+
+################ SEBELUM PERBAIKAN (versi langkah 3) ################
+=== LANGKAH 4: pengamanan login dan sesi
+GAGAL  4a login salah beruntun diblokir; password benar pun ditolak selama diblokir  -> 8 percobaan salah=['salah', 'salah', 'salah', 'salah', 'salah', 'salah', 'salah', 'salah']; lalu password benar=masuk
+LOLOS  4b setelah batas direset, login dengan password benar berhasil
+LOLOS  4c ID sesi berganti setelah login (anti session fixation)  -> berganti
+LOLOS  4d cookie sesi berflag HttpOnly dan SameSite  -> HttpOnly=True SameSite=lax Secure=False (Secure baru aktif di HTTPS)
+GAGAL  4e GET /logout tidak boleh mengeluarkan pengguna (anti logout paksa lewat link)  -> GET /logout -> 302; sesudahnya /dashboard -> 302
+LOLOS  4f logout berhasil dan cookie sesi lama tidak bisa dipakai ulang  -> logout -> 302; /dashboard dengan cookie lama -> 302; /dashboard sesudah -> 302
+GAGAL  4g 'Ingat saya' membuat pengguna tetap masuk setelah sesi hilang  -> cookie=['remember_token']; /dashboard tanpa cookie sesi -> 302
+LOLOS  4h tanpa 'Ingat saya', sesi yang hilang berarti keluar  -> /dashboard -> 302
+GAGAL  4i tombol logout berupa form POST, bukan link  -> form POST=False link GET=True
+
+RINGKASAN: 5 lolos dari 9 skenario
+
+################ SESUDAH PERBAIKAN (versi langkah 4) ################
+=== LANGKAH 4: pengamanan login dan sesi
+LOLOS  4a login salah beruntun diblokir; password benar pun ditolak selama diblokir  -> 8 percobaan salah=['salah', 'salah', 'salah', 'salah', 'salah', 'diblokir', 'diblokir', 'diblokir']; lalu password benar=diblokir
+LOLOS  4b setelah batas direset, login dengan password benar berhasil
+LOLOS  4c ID sesi berganti setelah login (anti session fixation)  -> berganti
+LOLOS  4d cookie sesi berflag HttpOnly dan SameSite  -> HttpOnly=True SameSite=lax Secure=False (Secure baru aktif di HTTPS)
+LOLOS  4e GET /logout tidak boleh mengeluarkan pengguna (anti logout paksa lewat link)  -> GET /logout -> 405; sesudahnya /dashboard -> 200
+LOLOS  4f logout berhasil dan cookie sesi lama tidak bisa dipakai ulang  -> logout -> 302; /dashboard dengan cookie lama -> 302; /dashboard sesudah -> 302
+LOLOS  4g 'Ingat saya' membuat pengguna tetap masuk setelah sesi hilang  -> cookie=['remember_web_59ba36addc2b2f9401580f014c7f58ea4e30989d']; /dashboard tanpa cookie sesi -> 200
+LOLOS  4h tanpa 'Ingat saya', sesi yang hilang berarti keluar  -> /dashboard -> 302
+LOLOS  4i tombol logout berupa form POST, bukan link  -> form POST=True link GET=False
+
+RINGKASAN: 9 lolos dari 9 skenario

@@ -1,0 +1,29 @@
+BUKTI PENGUJIAN LANGKAH 5 (konfigurasi produksi dan pesan error)
+Lingkungan uji: PHP 8.3, MariaDB 10.11, Laravel 12.61
+Kegagalan database dipaksa dengan trigger uji (dihapus setelah pengujian) agar bisa dilihat apa yang sampai ke pengguna.
+
+################ SEBELUM PERBAIKAN (APP_DEBUG=true, kode langkah 4) ################
+=== LANGKAH 5: konfigurasi produksi dan pesan error
+GAGAL  5a kegagalan di server tidak membocorkan detail database ke pengguna  -> respons='{"status":"error","pesan":"Gagal menyimpan: SQLSTATE[45000]: <<Unknown error>>: 1644 RAHASIA_SQL_DETAIL tb_log' bocor=['RAHASIA_SQL_DETAIL', 'SQLSTATE', 'tb_log_aktivitas']
+LOLOS  5b transaksi yang gagal dibatalkan penuh (tidak ada data setengah jadi)
+GAGAL  5c error asli tetap tercatat di laravel.log untuk developer  -> ukuran log=0 byte
+GAGAL  5d halaman error 500 tidak menampilkan SQL, jejak kode, atau path server  -> HTTP 500; bocor=['RAHASIA_SQL_DETAIL', 'SQLSTATE', 'tb_log_aktivitas', 'vendor/laravel', 'Illuminate\\']
+LOLOS  5e halaman 404 tidak membocorkan jejak kode  -> HTTP 404; bocor=[]
+GAGAL  5f .env.example berisi default aman: APP_DEBUG=false (komentar tidak dihitung)  -> nilai sekarang=['APP_DEBUG=true']
+LOLOS  5g tidak ada kode debug (dd, dump, var_dump, phpinfo) tertinggal
+LOLOS  5h password akun demo tidak tertulis di kode seeder (dibaca dari .env)
+
+RINGKASAN: 4 lolos dari 8 skenario
+
+################ SESUDAH PERBAIKAN (APP_DEBUG=false, kode langkah 5) ################
+=== LANGKAH 5: konfigurasi produksi dan pesan error
+LOLOS  5a kegagalan di server tidak membocorkan detail database ke pengguna  -> respons='{"status":"error","pesan":"Transaksi gagal disimpan. Silakan coba lagi."}' bocor=[]
+LOLOS  5b transaksi yang gagal dibatalkan penuh (tidak ada data setengah jadi)
+LOLOS  5c error asli tetap tercatat di laravel.log untuk developer  -> ukuran log=20784 byte
+LOLOS  5d halaman error 500 tidak menampilkan SQL, jejak kode, atau path server  -> HTTP 500; bocor=[]
+LOLOS  5e halaman 404 tidak membocorkan jejak kode  -> HTTP 404; bocor=[]
+LOLOS  5f .env.example berisi default aman: APP_DEBUG=false (komentar tidak dihitung)  -> nilai sekarang=['APP_DEBUG=false']
+LOLOS  5g tidak ada kode debug (dd, dump, var_dump, phpinfo) tertinggal
+LOLOS  5h password akun demo tidak tertulis di kode seeder (dibaca dari .env)
+
+RINGKASAN: 8 lolos dari 8 skenario

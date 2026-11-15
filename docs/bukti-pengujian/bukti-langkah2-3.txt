@@ -1,0 +1,59 @@
+BUKTI PENGUJIAN LANGKAH 2 DAN 3 (harga dari server, hak akses barang)
+Lingkungan uji: PHP 8.3, MariaDB 10.11, Laravel 12.61, data awal dari DatabaseSeeder
+Skenario dijalankan otomatis (login sungguhan, permintaan HTTP sungguhan, hasil dicek langsung di database).
+
+################ SEBELUM PERBAIKAN (versi langkah 1) ################
+=== LANGKAH 2: harga dihitung server (login sebagai pegawai1, Warung Berkah)
+GAGAL  2a harga palsu (Aqua 3.500 dikirim Rp 1) tidak dipakai  -> total=1 harga_detail=1 kembalian=9999
+GAGAL  2b bayar Rp 1 untuk barang Rp 10.000 ditolak, tidak ada transaksi  -> status=ok pesan=None
+GAGAL  2c unitPerQty palsu (isi 12 dikirim 1): stok harus berkurang 12  -> stok 120 -> 119
+GAGAL  2d jual satuan untuk barang yang tidak boleh satuan ditolak  -> status=ok pesan=None
+LOLOS  2e barang milik warung lain ditolak  -> pesan=Barang tidak ditemukan atau bukan milik warung ini
+GAGAL  2f QRIS: total dan bayar mengikuti harga asli  -> total/bayar/kembalian=['1', '1', '0', 'qris']
+LOLOS  2g transaksi normal tetap berjalan (total 17.500, kembalian 2.500, stok berkurang 2 dan 3)  -> status=ok tx=['17500', '20000', '2500', 'cash']
+LOLOS  2h input tidak valid ditolak dan stok tidak berubah  -> qty 0:error; qty negatif:error; keranjang bukan array:error; barang tidak ada:error; qty sangat besar / stok tidak cukup:error
+
+=== LANGKAH 3: hak akses barang (login sebagai pegawai1)
+GAGAL  3a pegawai tidak bisa membuka daftar barang  -> HTTP 200
+GAGAL  3b pegawai tidak bisa membuka form edit barang  -> HTTP 200
+GAGAL  3c pegawai tidak bisa mengubah harga barang (PUT)  -> HTTP 302, harga_jual sekarang 1
+GAGAL  3d pegawai tidak bisa menghapus barang (DELETE)  -> HTTP 302, barang masih ada=0
+GAGAL  3e menu Barang tidak tampil untuk pegawai
+LOLOS  3f pegawai tetap bisa memakai kasir  -> HTTP 200
+
+=== LANGKAH 3: pemilik tetap berfungsi (login sebagai pemilik)
+LOLOS  3g pemilik membuka daftar barang  -> HTTP 200
+LOLOS  3h pemilik membuka form edit  -> HTTP 200
+LOLOS  3i pemilik berhasil mengubah harga barang  -> HTTP 302, harga_jual 3600
+LOLOS  3j pemilik membuka tambah stok  -> HTTP 200
+LOLOS  3k pemilik tetap bisa memakai kasir  -> HTTP 200
+
+RINGKASAN: 9 lolos dari 19 skenario
+
+################ SESUDAH PERBAIKAN (versi langkah 3) ################
+=== LANGKAH 2: harga dihitung server (login sebagai pegawai1, Warung Berkah)
+LOLOS  2a harga palsu (Aqua 3.500 dikirim Rp 1) tidak dipakai  -> total=7000 harga_detail=3500 kembalian=3000
+LOLOS  2b bayar Rp 1 untuk barang Rp 10.000 ditolak, tidak ada transaksi  -> status=error pesan=Uang bayar kurang dari total
+LOLOS  2c unitPerQty palsu (isi 12 dikirim 1): stok harus berkurang 12  -> stok 120 -> 108
+LOLOS  2d jual satuan untuk barang yang tidak boleh satuan ditolak  -> status=error pesan=Barang "Aqua 600ml" tidak bisa dijual satuan
+LOLOS  2e barang milik warung lain ditolak  -> pesan=Barang tidak ditemukan atau bukan milik warung ini
+LOLOS  2f QRIS: total dan bayar mengikuti harga asli  -> total/bayar/kembalian=['3500', '3500', '0', 'qris']
+LOLOS  2g transaksi normal tetap berjalan (total 17.500, kembalian 2.500, stok berkurang 2 dan 3)  -> status=ok tx=['17500', '20000', '2500', 'cash']
+LOLOS  2h input tidak valid ditolak dan stok tidak berubah  -> qty 0:error; qty negatif:error; keranjang bukan array:error; barang tidak ada:error; qty sangat besar / stok tidak cukup:error
+
+=== LANGKAH 3: hak akses barang (login sebagai pegawai1)
+LOLOS  3a pegawai tidak bisa membuka daftar barang  -> HTTP 302
+LOLOS  3b pegawai tidak bisa membuka form edit barang  -> HTTP 302
+LOLOS  3c pegawai tidak bisa mengubah harga barang (PUT)  -> HTTP 302, harga_jual sekarang 3500
+LOLOS  3d pegawai tidak bisa menghapus barang (DELETE)  -> HTTP 302, barang masih ada=1
+LOLOS  3e menu Barang tidak tampil untuk pegawai
+LOLOS  3f pegawai tetap bisa memakai kasir  -> HTTP 200
+
+=== LANGKAH 3: pemilik tetap berfungsi (login sebagai pemilik)
+LOLOS  3g pemilik membuka daftar barang  -> HTTP 200
+LOLOS  3h pemilik membuka form edit  -> HTTP 200
+LOLOS  3i pemilik berhasil mengubah harga barang  -> HTTP 302, harga_jual 3600
+LOLOS  3j pemilik membuka tambah stok  -> HTTP 200
+LOLOS  3k pemilik tetap bisa memakai kasir  -> HTTP 200
+
+RINGKASAN: 19 lolos dari 19 skenario
