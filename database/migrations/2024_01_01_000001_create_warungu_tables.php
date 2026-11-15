@@ -21,8 +21,11 @@ return new class extends Migration {
             $table->string('username', 100)->unique();
             $table->string('password');
             $table->enum('role', ['pemilik', 'pegawai'])->default('pegawai');
+            // menunggu = baru daftar, belum disetujui pemilik (tidak bisa login)
+            // Default 'menunggu' disengaja: kalau ada kode yang lupa mengisi status, akun tetap terkunci.
+            $table->enum('status', ['menunggu', 'aktif', 'nonaktif'])->default('menunggu');
             $table->string('remember_token', 255)->nullable();
-            $table->unsignedBigInteger('id_warung');
+            $table->unsignedBigInteger('id_warung')->nullable(); // kosong selama status 'menunggu'
             $table->timestamps();
             $table->foreign('id_warung')->references('id_warung')->on('tb_warung')->onDelete('cascade');
         });
