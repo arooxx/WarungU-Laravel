@@ -61,9 +61,12 @@
             <div class="user-name">{{ auth()->user()->nama }}</div>
             <div class="user-role">{{ ucfirst(auth()->user()->role) }}</div>
         </div>
-        <a href="{{ route('logout') }}" class="logout-btn" title="Logout">
-            <i class="fas fa-sign-out-alt"></i>
-        </a>
+        <form method="POST" action="{{ route('logout') }}" style="margin:0;">
+            @csrf
+            <button type="submit" class="logout-btn" title="Logout" style="background:none;border:0;padding:0;cursor:pointer;">
+                <i class="fas fa-sign-out-alt"></i>
+            </button>
+        </form>
     </div>
 </div>
 

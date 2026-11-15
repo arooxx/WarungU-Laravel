@@ -42,7 +42,10 @@
         <a href="{{ route('dashboard') }}" class="btn btn-sm btn-outline-primary" style="border-radius:8px;font-size:.8rem;">
             <i class="fas fa-tachometer-alt me-1"></i>Dashboard
         </a>
-        <a href="{{ route('logout') }}" class="btn btn-sm btn-outline-danger" style="border-radius:8px;font-size:.8rem;">Logout</a>
+        <form method="POST" action="{{ route('logout') }}" class="d-inline" style="margin:0;">
+            @csrf
+            <button type="submit" class="btn btn-sm btn-outline-danger" style="border-radius:8px;font-size:.8rem;">Logout</button>
+        </form>
     </div>
 </div>
 

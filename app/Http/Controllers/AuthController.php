@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Str;
 use App\Models\User;
 use App\Models\Warung;
 
@@ -19,28 +20,35 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $username    = trim($request->input('username', ''));
-        $password    = $request->input('password', '');
-        $remember_me = $request->has('remember_me');
+        $username = trim($request->input('username', ''));
+        $password = $request->input('password', '');
 
         if (!$username || !$password) {
             return back()->withErrors(['login' => 'Username dan password wajib diisi!'])->withInput();
         }
 
+        // Batasi tebak-tebakan password: maksimal 5 kali gagal per menit
+        // untuk kombinasi username + alamat IP.
+        $kunci = Str::lower($username) . '|' . $request->ip();
+        if (RateLimiter::tooManyAttempts($kunci, 5)) {
+            $detik = RateLimiter::availableIn($kunci);
+            return back()
+                ->withErrors(['login' => "Terlalu banyak percobaan login. Coba lagi dalam {$detik} detik."])
+                ->withInput();
+        }
+
         $user = User::where('username', $username)->first();
 
         if (!$user || !Hash::check($password, $user->password)) {
+            RateLimiter::hit($kunci, 60);
             return back()->withErrors(['login' => 'Username atau password salah!'])->withInput();
         }
 
-        Auth::login($user, false);
+        RateLimiter::clear($kunci);
 
-        // Remember me — simpan token ke cookie (sama persis dengan native)
-        if ($remember_me) {
-            $token = bin2hex(random_bytes(32));
-            $user->update(['remember_token' => $token]);
-            Cookie::queue('remember_token', $token, 60 * 24 * 30); // 30 hari
-        }
+        // "Ingat saya" memakai mekanisme bawaan Laravel (cookie terenkripsi, token
+        // dirotasi saat logout). Auth::login() sudah mengganti ID sesi otomatis.
+        Auth::login($user, $request->boolean('remember_me'));
 
         // Catat log
         \DB::table('tb_log_aktivitas')->insert([
@@ -55,15 +63,11 @@ class AuthController extends Controller
         return redirect()->route('dashboard');
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
-        // Hapus remember_token dari DB
-        if (Auth::check()) {
-            Auth::user()->update(['remember_token' => null]);
-        }
         Auth::logout();
-        session()->flush();
-        Cookie::queue(Cookie::forget('remember_token'));
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
         return redirect()->route('login');
     }
 

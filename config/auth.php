@@ -10,6 +10,7 @@ return [
         'web' => [
             'driver'   => 'session',
             'provider' => 'users',
+            'remember' => 43200, // menit = 30 hari
         ],
     ],
 
