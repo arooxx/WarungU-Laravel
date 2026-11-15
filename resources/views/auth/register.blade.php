@@ -36,19 +36,16 @@
                 <input type="text" name="username" class="form-control" value="{{ old('username') }}" placeholder="Username login" required>
             </div>
             <div class="mb-3">
-                <label class="form-label" style="font-weight:600;font-size:.84rem;">Password <small style="color:#7a809a;">(min. 6 karakter)</small></label>
-                <input type="password" name="password" class="form-control" placeholder="Password" required>
+                <label class="form-label" style="font-weight:600;font-size:.84rem;">Password</label>
+                <input type="password" name="password" class="form-control" placeholder="Password" required autocomplete="new-password">
+                <small style="color:#7a809a;">Minimal 8 karakter, wajib huruf dan angka, tidak boleh sama dengan username.</small>
             </div>
             <div class="mb-3">
-                <label class="form-label" style="font-weight:600;font-size:.84rem;">Warung</label>
-                <select name="id_warung" class="form-select" required>
-                    <option value="">Pilih warung...</option>
-                    @foreach($warungList as $w)
-                        <option value="{{ $w->id_warung }}" {{ old('id_warung') == $w->id_warung ? 'selected' : '' }}>
-                            {{ $w->nama_warung }}
-                        </option>
-                    @endforeach
-                </select>
+                <label class="form-label" style="font-weight:600;font-size:.84rem;">Ulangi Password</label>
+                <input type="password" name="password_confirmation" class="form-control" placeholder="Ketik ulang password" required autocomplete="new-password">
+            </div>
+            <div class="mb-3" style="font-size:.78rem;color:#7a809a;">
+                <i class="fas fa-info-circle me-1"></i>Setelah mendaftar, akun baru bisa dipakai setelah disetujui pemilik warung.
             </div>
             <button type="submit" class="btn btn-primary w-100" style="border-radius:8px;padding:10px;font-weight:700;">
                 <i class="fas fa-user-plus me-2"></i>Buat Akun

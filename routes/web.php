@@ -18,10 +18,12 @@ Route::get('/', fn() => redirect()->route('login'));
 Route::middleware('guest')->group(function () {
     Route::get( '/login',    [AuthController::class, 'showLogin'])->name('login');
     Route::post('/login',    [AuthController::class, 'login'])->name('login.post');
+    Route::get( '/register', [AuthController::class, 'showRegister'])->name('register');
+    Route::post('/register', [AuthController::class, 'register'])->name('register.post')->middleware('throttle:5,1');
 });
 
 // Protected routes
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'aktif'])->group(function () {
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
@@ -70,6 +72,9 @@ Route::middleware('auth')->group(function () {
         Route::get   ('/pegawai/{id}/edit',  [PegawaiController::class, 'edit'])->name('pegawai.edit');
         Route::put   ('/pegawai/{id}',       [PegawaiController::class, 'update'])->name('pegawai.update');
         Route::delete('/pegawai/{id}',       [PegawaiController::class, 'destroy'])->name('pegawai.destroy');
+        Route::post  ('/pegawai/{id}/setujui', [PegawaiController::class, 'setujui'])->name('pegawai.setujui');
+        Route::post  ('/pegawai/{id}/tolak',   [PegawaiController::class, 'tolak'])->name('pegawai.tolak');
+        Route::post  ('/pegawai/{id}/status',  [PegawaiController::class, 'ubahStatus'])->name('pegawai.status');
 
         Route::get   ('/warung',             [WarungController::class, 'index'])->name('warung.index');
         Route::post  ('/warung',             [WarungController::class, 'index'])->name('warung.store');

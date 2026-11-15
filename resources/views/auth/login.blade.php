@@ -60,7 +60,8 @@
 
         <div class="auth-divider">atau</div>
         <div class="text-center" style="font-size:.83rem;color:#7a809a;">
-            Hubungi admin untuk membuat akun.
+            Belum punya akun?
+            <a href="{{ route('register') }}" style="color:#6C63FF;font-weight:600;">Daftar di sini</a>
         </div>
     </div>
 </div>

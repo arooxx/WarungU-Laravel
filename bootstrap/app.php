@@ -14,6 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
         // Daftarkan alias middleware 'pemilik'
         $middleware->alias([
             'pemilik' => \App\Http\Middleware\PemilikMiddleware::class,
+            'aktif'   => \App\Http\Middleware\EnsureUserAktif::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

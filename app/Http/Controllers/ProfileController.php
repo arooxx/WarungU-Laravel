@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Rules\PasswordKuat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -73,12 +74,12 @@ class ProfileController extends BaseController
 
         $request->validate([
             'password_lama'   => 'required',
-            'password_baru'   => 'required|min:6',
+            'password_baru'   => ['required', 'different:password_lama', new PasswordKuat($user->username)],
             'password_konfirm'=> 'required|same:password_baru',
         ], [
             'password_lama.required'    => 'Password lama wajib diisi.',
             'password_baru.required'    => 'Password baru wajib diisi.',
-            'password_baru.min'         => 'Password baru minimal 6 karakter.',
+            'password_baru.different'   => 'Password baru harus berbeda dari password lama.',
             'password_konfirm.required' => 'Konfirmasi password wajib diisi.',
             'password_konfirm.same'     => 'Password baru dan konfirmasi tidak sama.',
         ]);

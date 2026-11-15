@@ -6,9 +6,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use App\Rules\PasswordKuat;
+use App\Support\AturanAkun;
 use App\Models\User;
-use App\Models\Warung;
 
 class AuthController extends Controller
 {
@@ -44,6 +46,15 @@ class AuthController extends Controller
             return back()->withErrors(['login' => 'Username atau password salah!'])->withInput();
         }
 
+        // Password benar, tapi akun belum boleh dipakai (pesan hanya diberikan setelah password benar,
+        // supaya orang lain tidak bisa menebak status akun).
+        if ($user->status !== 'aktif') {
+            $pesan = $user->status === 'menunggu'
+                ? 'Akun Anda masih menunggu persetujuan pemilik warung.'
+                : 'Akun Anda dinonaktifkan. Hubungi pemilik warung.';
+            return back()->withErrors(['login' => $pesan])->withInput();
+        }
+
         RateLimiter::clear($kunci);
 
         // "Ingat saya" memakai mekanisme bawaan Laravel (cookie terenkripsi, token
@@ -73,35 +84,37 @@ class AuthController extends Controller
 
     public function showRegister()
     {
-        $warungList = Warung::orderBy('nama_warung')->get();
-        return view('auth.register', compact('warungList'));
+        return view('auth.register');
     }
 
+    /**
+     * Pendaftaran publik. Pendaftar SELALU menjadi pegawai berstatus 'menunggu' dan belum punya warung;
+     * role, status, dan warung tidak pernah diambil dari input. Pemilik yang menyetujui.
+     */
     public function register(Request $request)
     {
-        $nama      = trim($request->input('nama', ''));
-        $username  = trim($request->input('username', ''));
-        $password  = $request->input('password', '');
-        $id_warung = (int)$request->input('id_warung', 0);
+        $validator = Validator::make($request->all(), [
+            'nama'     => ['required', 'string', 'max:100'],
+            'username' => AturanAkun::username(),
+            'password' => ['required', 'confirmed', new PasswordKuat($request->input('username'))],
+        ], AturanAkun::pesan());
 
-        if (!$nama || !$username || !$password) {
-            return back()->withErrors(['register' => 'Semua field wajib diisi!'])->withInput();
-        }
-        if (strlen($password) < 6) {
-            return back()->withErrors(['register' => 'Password minimal 6 karakter!'])->withInput();
-        }
-        if (User::where('username', $username)->exists()) {
-            return back()->withErrors(['register' => 'Username sudah digunakan!'])->withInput();
+        if ($validator->fails()) {
+            return back()
+                ->withErrors(['register' => $validator->errors()->first()])
+                ->withInput($request->only('nama', 'username'));
         }
 
-        User::create([
-            'nama'      => $nama,
-            'username'  => $username,
-            'password'  => Hash::make($password),
+        (new User())->forceFill([
+            'nama'      => $request->input('nama'),
+            'username'  => $request->input('username'),
+            'password'  => Hash::make($request->input('password')),
             'role'      => 'pegawai',
-            'id_warung' => $id_warung,
-        ]);
+            'status'    => 'menunggu',
+            'id_warung' => null,
+        ])->save();
 
-        return redirect()->route('login')->with('success', 'Akun berhasil dibuat. Silakan login.');
+        return redirect()->route('login')
+            ->with('success', 'Pendaftaran berhasil. Akun Anda baru bisa dipakai setelah disetujui pemilik warung.');
     }
 }
