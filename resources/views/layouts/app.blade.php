@@ -40,8 +40,8 @@
     <nav>
         <a href="{{ route('kasir.index') }}"     class="{{ request()->routeIs('kasir.*')     ? 'active' : '' }}"><i class="fas fa-cash-register"></i> Kasir</a>
         <a href="{{ route('dashboard') }}"        class="{{ request()->routeIs('dashboard')   ? 'active' : '' }}"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-        <a href="{{ route('barang.index') }}"     class="{{ request()->routeIs('barang.*')    ? 'active' : '' }}"><i class="fas fa-box"></i> Barang</a>
         @if(auth()->user()->isPemilik())
+            <a href="{{ route('barang.index') }}"     class="{{ request()->routeIs('barang.*')    ? 'active' : '' }}"><i class="fas fa-box"></i> Barang</a>
             <a href="{{ route('kategori.index') }}"   class="{{ request()->routeIs('kategori.*')  ? 'active' : '' }}"><i class="fas fa-tags"></i> Kategori</a>
         @endif
         <a href="{{ route('penjualan.index') }}"  class="{{ request()->routeIs('penjualan.*') ? 'active' : '' }}"><i class="fas fa-receipt"></i> Penjualan</a>

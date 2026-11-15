@@ -123,7 +123,7 @@
         <div class="profile-hero text-center">
             <div class="hero-avatar">{{ $initial }}</div>
             <div class="hero-name">{{ $u->nama }}</div>
-            <div class="hero-username">@{{ $u->username }}</div>
+            <div class="hero-username">&#64;{{ $u->username }}</div>
             <div>
                 <span class="hero-badge">
                     <i class="fas fa-{{ $isPemilik ? 'crown' : 'user' }} me-1"></i>{{ ucfirst($u->role) }}
@@ -149,7 +149,7 @@
                 </div>
                 <div>
                     <div class="info-label">Username</div>
-                    <div class="info-value">@{{ $u->username }}</div>
+                    <div class="info-value">&#64;{{ $u->username }}</div>
                 </div>
             </div>
             <div class="info-row">

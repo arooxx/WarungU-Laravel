@@ -35,12 +35,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/penjualan',      [PenjualanController::class, 'index'])->name('penjualan.index');
     Route::get('/penjualan/{id}', [PenjualanController::class, 'detail'])->name('penjualan.detail');
 
-    // Barang — index & edit hanya pemilik
-    Route::get( '/barang',              [BarangController::class, 'index'])->name('barang.index');
-    Route::get( '/barang/{id}/edit',    [BarangController::class, 'edit'])->name('barang.edit');
-    Route::put( '/barang/{id}',         [BarangController::class, 'update'])->name('barang.update');
-    Route::delete('/barang/{id}',       [BarangController::class, 'destroy'])->name('barang.destroy');
-
     // Laporan (semua role bisa akses)
     Route::get('/laporan',        [LaporanController::class, 'index'])->name('laporan.index');
     Route::get('/laporan/export', [LaporanController::class, 'exportExcel'])->name('laporan.export');
@@ -54,7 +48,11 @@ Route::middleware('auth')->group(function () {
     // Hanya pemilik
     Route::middleware('pemilik')->group(function () {
 
-        // Barang tambah & stok hanya pemilik
+        // Barang: seluruh operasi (lihat, tambah, edit, hapus, stok) hanya pemilik
+        Route::get   ('/barang',            [BarangController::class, 'index'])->name('barang.index');
+        Route::get   ('/barang/{id}/edit',  [BarangController::class, 'edit'])->name('barang.edit');
+        Route::put   ('/barang/{id}',       [BarangController::class, 'update'])->name('barang.update');
+        Route::delete('/barang/{id}',       [BarangController::class, 'destroy'])->name('barang.destroy');
         Route::get( '/barang/tambah-stok',  [BarangController::class, 'showTambahStok'])->name('barang.tambah-stok');
         Route::post('/barang/tambah-stok',  [BarangController::class, 'prosesStok'])->name('barang.proses-stok');
         Route::get( '/barang/tambah',       [BarangController::class, 'create'])->name('barang.create');
