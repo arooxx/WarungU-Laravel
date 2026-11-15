@@ -35,9 +35,9 @@
 
             <div class="d-flex align-items-center gap-1 ms-2" id="filterTanggal"
                  style="display:{{ in_array($jenis,['penjualan','terlaris']) ? 'flex' : 'none' }}!important;">
-                <label style="font-size:.8rem;color:#7a809a;">Dari:</label>
+                <label style="font-size:.8rem;color:#7B857F;">Dari:</label>
                 <input type="date" name="dari" class="form-control form-control-sm" style="width:135px;border-radius:8px;" value="{{ $dari }}">
-                <label style="font-size:.8rem;color:#7a809a;">—</label>
+                <label style="font-size:.8rem;color:#7B857F;">—</label>
                 <input type="date" name="sampai" class="form-control form-control-sm" style="width:135px;border-radius:8px;" value="{{ $sampai }}">
             </div>
 
@@ -60,7 +60,7 @@
         <span>
             <i class="fas fa-table me-1" style="color:var(--primary);"></i>{{ $judulMap[$jenis] ?? $jenis }}
             @if(in_array($jenis, ['penjualan','terlaris']))
-                <small style="color:#7a809a;font-weight:400;"> &nbsp;{{ $dari }} — {{ $sampai }}</small>
+                <small style="color:#7B857F;font-weight:400;"> &nbsp;{{ $dari }} — {{ $sampai }}</small>
             @endif
         </span>
         @if($jenis === 'penjualan' && $totalLaporan > 0)
@@ -86,37 +86,37 @@
                     <tbody>
                         @forelse($dataLaporan as $i => $t)
                             <tr>
-                                <td style="color:#7a809a;">{{ $i+1 }}</td>
+                                <td style="color:#7B857F;">{{ $i+1 }}</td>
                                 <td>{{ $t->tanggal->format('d/m/Y H:i') }}</td>
                                 @if($semuaWarung)
-                                    <td><span style="background:#f0f2f8;color:#7a809a;padding:2px 7px;border-radius:5px;font-size:.75rem;">{{ $t->warung->nama_warung ?? '-' }}</span></td>
+                                    <td><span style="background:#EEF1EE;color:#7B857F;padding:2px 7px;border-radius:5px;font-size:.75rem;">{{ $t->warung->nama_warung ?? '-' }}</span></td>
                                 @endif
                                 <td>{{ $t->user->nama ?? '-' }}</td>
                                 <td>
                                     @if($t->metode_pembayaran === 'qris')
-                                        <span style="background:#e0f7f3;color:#00b894;padding:2px 7px;border-radius:5px;font-size:.73rem;font-weight:600;"><i class="fas fa-qrcode me-1"></i>QRIS</span>
+                                        <span style="background:#D3EEDF;color:#1B7A5A;padding:2px 7px;border-radius:5px;font-size:.73rem;font-weight:600;"><i class="fas fa-qrcode me-1"></i>QRIS</span>
                                     @else
-                                        <span style="background:#e8e6ff;color:#6C63FF;padding:2px 7px;border-radius:5px;font-size:.73rem;font-weight:600;"><i class="fas fa-money-bill-wave me-1"></i>Cash</span>
+                                        <span style="background:#14573A;color:#fff;padding:2px 7px;border-radius:5px;font-size:.73rem;font-weight:600;"><i class="fas fa-money-bill-wave me-1"></i>Cash</span>
                                     @endif
                                 </td>
                                 <td class="text-end fw-semibold" style="color:var(--primary);">Rp {{ number_format($t->total,0,',','.') }}</td>
                                 <td class="text-end">Rp {{ number_format($t->bayar,0,',','.') }}</td>
-                                <td class="text-end" style="color:#00b894;">Rp {{ number_format($t->kembalian,0,',','.') }}</td>
+                                <td class="text-end" style="color:#2E9E68;">Rp {{ number_format($t->kembalian,0,',','.') }}</td>
                                 <td class="no-print">
                                     <a href="{{ route('penjualan.detail', $t->id_transaksi) }}"
-                                       style="background:#e8e6ff;color:#6C63FF;padding:3px 8px;border-radius:6px;font-size:.73rem;">Detail</a>
+                                       style="background:#DDEFE4;color:#1F7A4D;padding:3px 8px;border-radius:6px;font-size:.73rem;">Detail</a>
                                 </td>
                             </tr>
                         @empty
                             <tr><td colspan="{{ $semuaWarung ? 9 : 8 }}" class="text-center py-5">
-                                <i class="fas fa-receipt fa-2x mb-2 d-block" style="color:#c0c5d8;"></i>
-                                <span style="color:#7a809a;">Tidak ada data penjualan pada periode ini</span>
+                                <i class="fas fa-receipt fa-2x mb-2 d-block" style="color:#BFC8C2;"></i>
+                                <span style="color:#7B857F;">Tidak ada data penjualan pada periode ini</span>
                             </td></tr>
                         @endforelse
                     </tbody>
                     @if($dataLaporan->count() && $totalLaporan > 0)
                         <tfoot>
-                            <tr style="background:#fafbff;">
+                            <tr style="background:#F7F9F7;">
                                 <td colspan="{{ $semuaWarung ? 5 : 4 }}" style="font-weight:700;">Total</td>
                                 <td class="text-end fw-bold" style="color:var(--primary);">Rp {{ number_format($totalLaporan,0,',','.') }}</td>
                                 <td colspan="3"></td>
@@ -137,12 +137,12 @@
                                     @if($i < 3)
                                         <span style="width:22px;height:22px;background:{{ ['#FFD700','#C0C0C0','#CD7F32'][$i] }};border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:800;color:#fff;">{{ $i+1 }}</span>
                                     @else
-                                        <span style="color:#7a809a;">{{ $i+1 }}</span>
+                                        <span style="color:#7B857F;">{{ $i+1 }}</span>
                                     @endif
                                 </td>
                                 <td style="font-weight:600;">{{ $r->nama_barang }}</td>
-                                @if($semuaWarung)<td><span style="background:#e8e6ff;color:#6C63FF;padding:2px 7px;border-radius:5px;font-size:.75rem;">{{ $r->nama_warung }}</span></td>@endif
-                                <td class="text-center"><span style="background:#e0f7f3;color:#00b894;padding:3px 10px;border-radius:6px;font-size:.8rem;font-weight:700;">{{ number_format($r->total_qty) }}</span></td>
+                                @if($semuaWarung)<td><span style="background:#DDEFE4;color:#1F7A4D;padding:2px 7px;border-radius:5px;font-size:.75rem;">{{ $r->nama_warung }}</span></td>@endif
+                                <td class="text-center"><span style="background:#E3F4EA;color:#2E9E68;padding:3px 10px;border-radius:6px;font-size:.8rem;font-weight:700;">{{ number_format($r->total_qty) }}</span></td>
                                 <td class="text-end fw-semibold" style="color:var(--primary);">Rp {{ number_format($r->total_pendapatan,0,',','.') }}</td>
                             </tr>
                         @empty
@@ -159,11 +159,11 @@
                     <tbody>
                         @forelse($dataLaporan as $i => $b)
                             <tr>
-                                <td style="color:#7a809a;">{{ $i+1 }}</td>
-                                <td><code style="background:#f0eeff;color:#6C63FF;padding:2px 6px;border-radius:5px;font-size:.75rem;">{{ $b->barcode ?: '—' }}</code></td>
+                                <td style="color:#7B857F;">{{ $i+1 }}</td>
+                                <td><code style="background:#E6F2EA;color:#1F7A4D;padding:2px 6px;border-radius:5px;font-size:.75rem;">{{ $b->barcode ?: '—' }}</code></td>
                                 <td style="font-weight:600;">{{ $b->nama_barang }}</td>
-                                <td><span style="background:#f0f2f8;color:#7a809a;padding:2px 7px;border-radius:5px;font-size:.75rem;">{{ $b->kategori->nama_kategori ?? '—' }}</span></td>
-                                @if($semuaWarung)<td><span style="background:#e8e6ff;color:#6C63FF;padding:2px 7px;border-radius:5px;font-size:.75rem;">{{ $b->warung->nama_warung ?? '—' }}</span></td>@endif
+                                <td><span style="background:#EEF1EE;color:#7B857F;padding:2px 7px;border-radius:5px;font-size:.75rem;">{{ $b->kategori->nama_kategori ?? '—' }}</span></td>
+                                @if($semuaWarung)<td><span style="background:#DDEFE4;color:#1F7A4D;padding:2px 7px;border-radius:5px;font-size:.75rem;">{{ $b->warung->nama_warung ?? '—' }}</span></td>@endif
                                 @php $stokMin = \App\Http\Controllers\BaseController::STOK_MIN; @endphp
                                 <td class="text-center">
                                     @if($b->stok < $stokMin)
@@ -171,7 +171,7 @@
                                     @elseif($b->stok < $stokMin * 2)
                                         <span style="background:#fff9e6;color:#e67e22;padding:3px 9px;border-radius:6px;font-size:.8rem;font-weight:700;">{{ $b->stok }}</span>
                                     @else
-                                        <span style="background:#e0f7f3;color:#00b894;padding:3px 9px;border-radius:6px;font-size:.8rem;font-weight:700;">{{ $b->stok }}</span>
+                                        <span style="background:#E3F4EA;color:#2E9E68;padding:3px 9px;border-radius:6px;font-size:.8rem;font-weight:700;">{{ $b->stok }}</span>
                                     @endif
                                 </td>
                                 <td>{{ $b->satuan }}</td>
@@ -180,7 +180,7 @@
                         @empty
                             <tr><td colspan="{{ $semuaWarung ? 8 : 7 }}" class="text-center py-5 text-muted">
                                 @if($jenis === 'hampir_habis')
-                                    <i class="fas fa-check-circle fa-2x mb-2 d-block" style="color:#00b894;"></i>Semua stok masih aman!
+                                    <i class="fas fa-check-circle fa-2x mb-2 d-block" style="color:#2E9E68;"></i>Semua stok masih aman!
                                 @else
                                     Tidak ada data barang
                                 @endif

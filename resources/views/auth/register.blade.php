@@ -12,11 +12,11 @@
 <div class="auth-wrapper">
     <div class="auth-card">
         <div class="text-center mb-4">
-            <div style="width:56px;height:56px;background:linear-gradient(135deg,#6C63FF,#9b5de5);border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;box-shadow:0 8px 20px rgba(108,99,255,.3);">
+            <div style="width:56px;height:56px;background:#1F7A4D;border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;box-shadow:0 8px 20px rgba(31,122,77,.3);">
                 <i class="fas fa-user-plus" style="color:#fff;font-size:1.3rem;"></i>
             </div>
             <div class="brand-title">WarungU</div>
-            <p style="color:#7a809a;font-size:.83rem;margin-top:4px;">Buat akun pegawai baru</p>
+            <p style="color:#7B857F;font-size:.83rem;margin-top:4px;">Buat akun pegawai baru</p>
         </div>
 
         @if($errors->has('register'))
@@ -38,13 +38,13 @@
             <div class="mb-3">
                 <label class="form-label" style="font-weight:600;font-size:.84rem;">Password</label>
                 <input type="password" name="password" class="form-control" placeholder="Password" required autocomplete="new-password">
-                <small style="color:#7a809a;">Minimal 8 karakter, wajib huruf dan angka, tidak boleh sama dengan username.</small>
+                <small style="color:#7B857F;">Minimal 8 karakter, wajib huruf dan angka, tidak boleh sama dengan username.</small>
             </div>
             <div class="mb-3">
                 <label class="form-label" style="font-weight:600;font-size:.84rem;">Ulangi Password</label>
                 <input type="password" name="password_confirmation" class="form-control" placeholder="Ketik ulang password" required autocomplete="new-password">
             </div>
-            <div class="mb-3" style="font-size:.78rem;color:#7a809a;">
+            <div class="mb-3" style="font-size:.78rem;color:#7B857F;">
                 <i class="fas fa-info-circle me-1"></i>Setelah mendaftar, akun baru bisa dipakai setelah disetujui pemilik warung.
             </div>
             <button type="submit" class="btn btn-primary w-100" style="border-radius:8px;padding:10px;font-weight:700;">
@@ -53,9 +53,9 @@
         </form>
 
         <div class="auth-divider">atau</div>
-        <div class="text-center" style="font-size:.83rem;color:#7a809a;">
+        <div class="text-center" style="font-size:.83rem;color:#7B857F;">
             Sudah punya akun?
-            <a href="{{ route('login') }}" style="color:#6C63FF;font-weight:600;">Login di sini</a>
+            <a href="{{ route('login') }}" style="color:#1F7A4D;font-weight:600;">Login di sini</a>
         </div>
     </div>
 </div>

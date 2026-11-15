@@ -8,7 +8,7 @@
 @if(auth()->user()->isPemilik())
 <div class="filter-warung-bar mb-3">
     <div class="d-flex align-items-center gap-2 flex-wrap">
-        <span style="font-size:.78rem;font-weight:600;color:#7a809a;white-space:nowrap;">
+        <span style="font-size:.78rem;font-weight:600;color:#7B857F;white-space:nowrap;">
             <i class="fas fa-store me-1"></i>Warung:
         </span>
         @php

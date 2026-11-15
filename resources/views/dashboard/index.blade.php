@@ -16,10 +16,10 @@
 @include('partials.filter_warung')
 
 {{-- Stat cards -- identik dengan native --}}
-<div class="row g-3 mb-4">
+<div class="row g-3 mb-4 dash-stats">
     <div class="col-6 col-xl-3">
-        <div class="stat-card-new">
-            <div class="sc-icon" style="background:linear-gradient(135deg,#6C63FF,#9b5de5);"><i class="fas fa-wallet"></i></div>
+        <div class="stat-card-new featured">
+            <div class="sc-icon"><i class="fas fa-wallet"></i></div>
             <div class="sc-body">
                 <div class="sc-val">Rp {{ number_format($pendapatanHari,0,',','.') }}</div>
                 <div class="sc-lbl">Pendapatan Hari Ini</div>
@@ -29,7 +29,7 @@
     </div>
     <div class="col-6 col-xl-3">
         <div class="stat-card-new">
-            <div class="sc-icon" style="background:linear-gradient(135deg,#00b894,#00cec9);"><i class="fas fa-chart-line"></i></div>
+            <div class="sc-icon"><i class="fas fa-chart-line"></i></div>
             <div class="sc-body">
                 <div class="sc-val">Rp {{ number_format($pendapatanBulan,0,',','.') }}</div>
                 <div class="sc-lbl">Pendapatan Bulan Ini</div>
@@ -39,7 +39,7 @@
     </div>
     <div class="col-6 col-xl-3">
         <div class="stat-card-new">
-            <div class="sc-icon" style="background:linear-gradient(135deg,#f7b731,#fd9644);"><i class="fas fa-receipt"></i></div>
+            <div class="sc-icon"><i class="fas fa-receipt"></i></div>
             <div class="sc-body">
                 <div class="sc-val">{{ $totalTransaksi }}</div>
                 <div class="sc-lbl">Transaksi Hari Ini</div>
@@ -48,7 +48,7 @@
     </div>
     <div class="col-6 col-xl-3">
         <div class="stat-card-new {{ $hampirHabis > 0 ? 'danger' : '' }}">
-            <div class="sc-icon" style="background:linear-gradient(135deg,#e17055,#d63031);"><i class="fas fa-exclamation-triangle"></i></div>
+            <div class="sc-icon" style="background:#FDECEA;color:#D63031;"><i class="fas fa-exclamation-triangle"></i></div>
             <div class="sc-body">
                 <div class="sc-val {{ $hampirHabis > 0 ? 'text-danger' : '' }}">{{ $hampirHabis }}</div>
                 <div class="sc-lbl">Stok Hampir Habis</div>
@@ -88,34 +88,34 @@
     {{-- Pie metode pembayaran --}}
     <div class="col-lg-4">
         <div class="card h-100">
-            <div class="card-header"><i class="fas fa-credit-card me-1" style="color:#6C63FF;"></i>Metode Pembayaran Hari Ini</div>
+            <div class="card-header"><i class="fas fa-credit-card me-1" style="color:#1F7A4D;"></i>Metode Pembayaran Hari Ini</div>
             <div class="card-body d-flex flex-column justify-content-center align-items-center gap-2" style="padding:14px;">
                 @if($pieCash + $pieQris > 0)
                     <div style="display:flex;gap:12px;margin-bottom:4px;">
                         <div style="text-align:center;">
-                            <div style="font-size:1.3rem;font-weight:800;color:#6C63FF;">{{ $pieCash }}</div>
-                            <div style="font-size:.7rem;color:#7a809a;font-weight:600;text-transform:uppercase;letter-spacing:.04em;">Cash</div>
+                            <div style="font-size:1.3rem;font-weight:800;color:#14573A;">{{ $pieCash }}</div>
+                            <div style="font-size:.7rem;color:#7B857F;font-weight:600;text-transform:uppercase;letter-spacing:.04em;">Cash</div>
                         </div>
-                        <div style="width:1px;background:#e4e7f0;"></div>
+                        <div style="width:1px;background:#E3E7E3;"></div>
                         <div style="text-align:center;">
-                            <div style="font-size:1.3rem;font-weight:800;color:#00b894;">{{ $pieQris }}</div>
-                            <div style="font-size:.7rem;color:#7a809a;font-weight:600;text-transform:uppercase;letter-spacing:.04em;">QRIS</div>
+                            <div style="font-size:1.3rem;font-weight:800;color:#3FA974;">{{ $pieQris }}</div>
+                            <div style="font-size:.7rem;color:#7B857F;font-weight:600;text-transform:uppercase;letter-spacing:.04em;">QRIS</div>
                         </div>
                     </div>
                     <div style="width:110px;height:110px;position:relative;flex-shrink:0;">
                         <canvas id="grafikMetode"></canvas>
                         <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;pointer-events:none;">
-                            <div style="font-size:.65rem;color:#7a809a;font-weight:600;line-height:1.2;">Total</div>
-                            <div style="font-size:.9rem;font-weight:800;color:#2d3748;line-height:1.2;">{{ $pieCash + $pieQris }}</div>
+                            <div style="font-size:.65rem;color:#7B857F;font-weight:600;line-height:1.2;">Total</div>
+                            <div style="font-size:.9rem;font-weight:800;color:#1B2A22;line-height:1.2;">{{ $pieCash + $pieQris }}</div>
                         </div>
                     </div>
                     <div class="d-flex gap-3" style="font-size:.78rem;margin-top:2px;">
-                        <span style="display:flex;align-items:center;gap:5px;"><span style="width:9px;height:9px;border-radius:50%;background:#6C63FF;display:inline-block;flex-shrink:0;"></span>Cash</span>
-                        <span style="display:flex;align-items:center;gap:5px;"><span style="width:9px;height:9px;border-radius:50%;background:#00b894;display:inline-block;flex-shrink:0;"></span>QRIS</span>
+                        <span style="display:flex;align-items:center;gap:5px;"><span style="width:9px;height:9px;border-radius:50%;background:#14573A;display:inline-block;flex-shrink:0;"></span>Cash</span>
+                        <span style="display:flex;align-items:center;gap:5px;"><span style="width:9px;height:9px;border-radius:50%;background:#3FA974;display:inline-block;flex-shrink:0;"></span>QRIS</span>
                     </div>
                 @else
                     <div class="text-center text-muted" style="font-size:.83rem;">
-                        <i class="fas fa-chart-pie fa-2x mb-2 d-block" style="color:#c0c5d8;"></i>
+                        <i class="fas fa-chart-pie fa-2x mb-2 d-block" style="color:#BFC8C2;"></i>
                         Belum ada transaksi hari ini
                     </div>
                 @endif
@@ -144,9 +144,9 @@
                                 <td>{{ $t->user->nama ?? '-' }}</td>
                                 <td>
                                     @if($t->metode_pembayaran === 'qris')
-                                        <span style="background:#e0f7f3;color:#00b894;padding:2px 7px;border-radius:5px;font-size:.72rem;font-weight:600;">QRIS</span>
+                                        <span style="background:#D3EEDF;color:#1B7A5A;padding:2px 7px;border-radius:5px;font-size:.72rem;font-weight:600;">QRIS</span>
                                     @else
-                                        <span style="background:#e8e6ff;color:#6C63FF;padding:2px 7px;border-radius:5px;font-size:.72rem;font-weight:600;">Cash</span>
+                                        <span style="background:#14573A;color:#fff;padding:2px 7px;border-radius:5px;font-size:.72rem;font-weight:600;">Cash</span>
                                     @endif
                                 </td>
                                 <td class="text-end fw-semibold" style="color:var(--primary);">Rp {{ number_format($t->total,0,',','.') }}</td>
@@ -177,7 +177,7 @@
                     </div>
                 @else
                     <div class="p-4 text-center text-muted" style="font-size:.83rem;">
-                        <i class="fas fa-check-circle fa-2x mb-2 d-block" style="color:#00b894;"></i>Semua stok aman
+                        <i class="fas fa-check-circle fa-2x mb-2 d-block" style="color:#2E9E68;"></i>Semua stok aman
                     </div>
                 @endif
             </div>
@@ -190,28 +190,28 @@
     <div class="col-md-6">
         <a href="{{ route('kasir.index') }}" class="text-decoration-none">
             <div class="shortcut-card" style="border-color:var(--primary);">
-                <div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#6C63FF,#9b5de5);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                <div style="width:44px;height:44px;border-radius:12px;background:#1F7A4D;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
                     <i class="fas fa-cash-register" style="color:#fff;font-size:1.1rem;"></i>
                 </div>
                 <div style="flex:1;">
                     <div style="font-weight:700;color:var(--text);font-size:.9rem;">Buka Kasir</div>
-                    <div style="font-size:.78rem;color:#7a809a;">Mulai transaksi penjualan</div>
+                    <div style="font-size:.78rem;color:#7B857F;">Mulai transaksi penjualan</div>
                 </div>
-                <i class="fas fa-arrow-right" style="color:#c0c5d8;font-size:.85rem;"></i>
+                <i class="fas fa-arrow-right" style="color:#BFC8C2;font-size:.85rem;"></i>
             </div>
         </a>
     </div>
     <div class="col-md-6">
         <a href="{{ route('barang.tambah-stok') }}" class="text-decoration-none">
-            <div class="shortcut-card" style="border-color:#00b894;">
-                <div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#00b894,#00cec9);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <div class="shortcut-card" style="border-color:#2E9E68;">
+                <div style="width:44px;height:44px;border-radius:12px;background:#2E9E68;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
                     <i class="fas fa-plus-circle" style="color:#fff;font-size:1.1rem;"></i>
                 </div>
                 <div style="flex:1;">
                     <div style="font-weight:700;color:var(--text);font-size:.9rem;">Tambah Stok</div>
-                    <div style="font-size:.78rem;color:#7a809a;">Input stok barang masuk</div>
+                    <div style="font-size:.78rem;color:#7B857F;">Input stok barang masuk</div>
                 </div>
-                <i class="fas fa-arrow-right" style="color:#c0c5d8;font-size:.85rem;"></i>
+                <i class="fas fa-arrow-right" style="color:#BFC8C2;font-size:.85rem;"></i>
             </div>
         </a>
     </div>
@@ -227,8 +227,8 @@ document.addEventListener('DOMContentLoaded', function () {
     if (ctxLine) {
         var ctx  = ctxLine.getContext('2d');
         var grad = ctx.createLinearGradient(0, 0, 0, 200);
-        grad.addColorStop(0, 'rgba(108,99,255,0.35)');
-        grad.addColorStop(1, 'rgba(108,99,255,0.0)');
+        grad.addColorStop(0, 'rgba(31,122,77,0.35)');
+        grad.addColorStop(1, 'rgba(31,122,77,0.0)');
         new Chart(ctx, {
             type: 'line',
             data: {
@@ -236,11 +236,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 datasets: [{
                     label: 'Pendapatan',
                     data: {!! json_encode($valueGrafik) !!},
-                    borderColor: '#6C63FF',
+                    borderColor: '#1F7A4D',
                     backgroundColor: grad,
                     fill: true, tension: 0.4,
                     pointBackgroundColor: '#fff',
-                    pointBorderColor: '#6C63FF',
+                    pointBorderColor: '#1F7A4D',
                     pointBorderWidth: 2, pointRadius: 4,
                 }]
             },
@@ -266,7 +266,7 @@ document.addEventListener('DOMContentLoaded', function () {
             type: 'doughnut',
             data: {
                 labels: ['Cash', 'QRIS'],
-                datasets: [{ data: [{{ $pieCash }}, {{ $pieQris }}], backgroundColor: ['#6C63FF', '#00b894'], borderWidth: 0, hoverOffset: 4 }]
+                datasets: [{ data: [{{ $pieCash }}, {{ $pieQris }}], backgroundColor: ['#14573A', '#3FA974'], borderWidth: 0, hoverOffset: 4 }]
             },
             options: {
                 responsive: true, maintainAspectRatio: true, cutout: '68%',

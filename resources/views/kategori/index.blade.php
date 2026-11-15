@@ -47,7 +47,7 @@ $ikonKat = [
                         <label class="form-label fw-semibold" style="font-size:.85rem;">Nama Kategori *</label>
                         <input type="text" name="nama_kategori" class="form-control"
                                placeholder="mis: Minuman, Snack, Obat..." required>
-                        <small style="color:#7a809a;font-size:.75rem;">Nama kategori tidak boleh duplikat.</small>
+                        <small style="color:#7B857F;font-size:.75rem;">Nama kategori tidak boleh duplikat.</small>
                     </div>
                     <button type="submit" class="btn btn-primary w-100" style="border-radius:8px;">
                         <i class="fas fa-plus me-1"></i>Tambah Kategori
@@ -58,7 +58,7 @@ $ikonKat = [
 
         {{-- Info card — identik dengan native --}}
         <div class="card mt-3">
-            <div class="card-body py-3" style="font-size:.82rem;color:#7a809a;">
+            <div class="card-body py-3" style="font-size:.82rem;color:#7B857F;">
                 <i class="fas fa-info-circle me-1" style="color:var(--primary);"></i>
                 Kategori digunakan untuk mengelompokkan barang di kasir dan laporan.<br><br>
                 @if(auth()->user()->isPemilik())
@@ -95,10 +95,10 @@ $ikonKat = [
                         <tbody>
                             @foreach($kategori as $i => $k)
                                 @php
-                                    $ik = $ikonKat[$k->nama_kategori] ?? ['fa-tag', '#6C63FF'];
+                                    $ik = $ikonKat[$k->nama_kategori] ?? ['fa-tag', '#1F7A4D'];
                                 @endphp
                                 <tr>
-                                    <td style="color:#7a809a;">{{ $i + 1 }}</td>
+                                    <td style="color:#7B857F;">{{ $i + 1 }}</td>
                                     <td>
                                         {{-- Ikon identik dengan native --}}
                                         <div style="display:flex;align-items:center;gap:8px;">
@@ -110,11 +110,11 @@ $ikonKat = [
                                     </td>
                                     <td class="text-center">
                                         @if($k->jml_barang > 0)
-                                            <span style="background:#e8e6ff;color:#6C63FF;padding:2px 10px;border-radius:6px;font-size:.8rem;font-weight:600;">
+                                            <span style="background:#DDEFE4;color:#1F7A4D;padding:2px 10px;border-radius:6px;font-size:.8rem;font-weight:600;">
                                                 {{ $k->jml_barang }} barang
                                             </span>
                                         @else
-                                            <span style="background:#f0f2f8;color:#7a809a;padding:2px 10px;border-radius:6px;font-size:.8rem;">
+                                            <span style="background:#EEF1EE;color:#7B857F;padding:2px 10px;border-radius:6px;font-size:.8rem;">
                                                 Kosong
                                             </span>
                                         @endif
@@ -122,7 +122,7 @@ $ikonKat = [
                                     @if(auth()->user()->isPemilik())
                                         <td class="text-center">
                                             <a href="{{ route('kategori.edit', $k->id_kategori) }}"
-                                               style="background:#e8e6ff;color:#6C63FF;padding:3px 10px;border-radius:7px;font-size:.75rem;font-weight:600;">
+                                               style="background:#DDEFE4;color:#1F7A4D;padding:3px 10px;border-radius:7px;font-size:.75rem;font-weight:600;">
                                                 Edit
                                             </a>
                                             @if($k->jml_barang == 0)
@@ -136,7 +136,7 @@ $ikonKat = [
                                                     @csrf @method('DELETE')
                                                 </form>
                                             @else
-                                                <span style="background:#f0f2f8;color:#c0c5d8;padding:3px 10px;border-radius:7px;font-size:.75rem;margin-left:4px;"
+                                                <span style="background:#EEF1EE;color:#BFC8C2;padding:3px 10px;border-radius:7px;font-size:.75rem;margin-left:4px;"
                                                       title="Tidak bisa dihapus, masih ada barang">
                                                     Hapus
                                                 </span>

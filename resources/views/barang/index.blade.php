@@ -52,7 +52,7 @@
     </div>
 
     <div class="card-body p-0">
-        <div class="p-3 border-bottom" style="background:#fafbff;">
+        <div class="p-3 border-bottom" style="background:#F7F9F7;">
             <input type="text" id="searchTabel" class="form-control form-control-sm"
                    placeholder="🔍 Cari nama barang, barcode, kategori..."
                    style="max-width:300px;border-radius:8px;">
@@ -79,31 +79,31 @@
                 <tbody>
                     @forelse($barang as $i => $b)
                         <tr>
-                            <td style="color:#7a809a;">{{ $i+1 }}</td>
+                            <td style="color:#7B857F;">{{ $i+1 }}</td>
                             <td>
-                                <code style="background:#f0eeff;color:#6C63FF;padding:2px 6px;border-radius:5px;font-size:.75rem;">
+                                <code style="background:#E6F2EA;color:#1F7A4D;padding:2px 6px;border-radius:5px;font-size:.75rem;">
                                     {{ $b->barcode ?: '—' }}
                                 </code>
                             </td>
                             <td style="font-weight:600;">{{ $b->nama_barang }}</td>
-                            <td><span style="background:#f0f2f8;color:#7a809a;padding:2px 8px;border-radius:6px;font-size:.78rem;">{{ $b->kategori->nama_kategori ?? '—' }}</span></td>
+                            <td><span style="background:#EEF1EE;color:#7B857F;padding:2px 8px;border-radius:6px;font-size:.78rem;">{{ $b->kategori->nama_kategori ?? '—' }}</span></td>
                             @if($semuaWarung)
-                                <td><span style="background:#e8e6ff;color:#6C63FF;padding:2px 8px;border-radius:6px;font-size:.75rem;">{{ $b->warung->nama_warung ?? '—' }}</span></td>
+                                <td><span style="background:#DDEFE4;color:#1F7A4D;padding:2px 8px;border-radius:6px;font-size:.75rem;">{{ $b->warung->nama_warung ?? '—' }}</span></td>
                             @endif
                             <td class="text-end fw-semibold">Rp {{ number_format($b->harga_jual,0,',','.') }}</td>
                             <td class="text-end">
                                 @if($b->bisa_satuan === 'ya')
-                                    <span style="color:#00b894;font-weight:600;">Rp {{ number_format($b->harga_satuan,0,',','.') }}</span>
+                                    <span style="color:#2E9E68;font-weight:600;">Rp {{ number_format($b->harga_satuan,0,',','.') }}</span>
                                 @else
-                                    <span style="color:#c0c5d8;">—</span>
+                                    <span style="color:#BFC8C2;">—</span>
                                 @endif
                             </td>
                             <td class="text-center">{{ $b->isi_per_pack }}</td>
                             <td class="text-center">
                                 @if($b->bisa_satuan === 'ya')
-                                    <span style="background:#e0f7f3;color:#00b894;padding:2px 8px;border-radius:6px;font-size:.75rem;font-weight:600;">✓ {{ $b->satuan }}</span>
+                                    <span style="background:#E3F4EA;color:#2E9E68;padding:2px 8px;border-radius:6px;font-size:.75rem;font-weight:600;">✓ {{ $b->satuan }}</span>
                                 @else
-                                    <span style="color:#7a809a;font-size:.83rem;">{{ $b->satuan }}</span>
+                                    <span style="color:#7B857F;font-size:.83rem;">{{ $b->satuan }}</span>
                                 @endif
                             </td>
                             <td class="text-center">
@@ -113,16 +113,16 @@
                                 @elseif($b->stok < $stokMin * 2)
                                     <span style="background:#fff9e6;color:#e67e22;padding:3px 9px;border-radius:6px;font-size:.78rem;font-weight:600;">{{ $b->stok }}</span>
                                 @else
-                                    <span style="background:#e0f7f3;color:#00b894;padding:3px 9px;border-radius:6px;font-size:.78rem;font-weight:600;">{{ $b->stok }}</span>
+                                    <span style="background:#E3F4EA;color:#2E9E68;padding:3px 9px;border-radius:6px;font-size:.78rem;font-weight:600;">{{ $b->stok }}</span>
                                 @endif
                             </td>
                             @if(auth()->user()->isPemilik())
                             <td class="text-center">
                                 <div class="d-flex justify-content-center gap-1">
                                     <a href="{{ route('barang.tambah-stok') }}?id={{ $b->id_barang }}"
-                                       style="background:#e0f7f3;color:#00b894;padding:3px 8px;border-radius:7px;font-size:.73rem;">+Stok</a>
+                                       style="background:#E3F4EA;color:#2E9E68;padding:3px 8px;border-radius:7px;font-size:.73rem;">+Stok</a>
                                     <a href="{{ route('barang.edit', $b->id_barang) }}"
-                                       style="background:#e8e6ff;color:#6C63FF;padding:3px 8px;border-radius:7px;font-size:.73rem;">Edit</a>
+                                       style="background:#DDEFE4;color:#1F7A4D;padding:3px 8px;border-radius:7px;font-size:.73rem;">Edit</a>
                                     <a href="#" onclick="konfirmasiHapusBlade('{{ route('barang.destroy', $b->id_barang) }}', '{{ addslashes($b->nama_barang) }}')"
                                        style="background:#fff0f0;color:var(--danger);padding:3px 8px;border-radius:7px;font-size:.73rem;">Hapus</a>
                                     <form id="hapus-{{ $b->id_barang }}" method="POST" action="{{ route('barang.destroy', $b->id_barang) }}" style="display:none;">
@@ -134,8 +134,8 @@
                         </tr>
                     @empty
                         <tr><td colspan="{{ $semuaWarung ? ($__env->yieldContent('') ? 12 : (auth()->user()->isPemilik() ? 11 : 10)) : (auth()->user()->isPemilik() ? 10 : 9) }}" class="text-center py-5">
-                            <i class="fas fa-box-open fa-2x mb-2 d-block" style="color:#c0c5d8;"></i>
-                            <span style="color:#7a809a;">Belum ada data barang</span>
+                            <i class="fas fa-box-open fa-2x mb-2 d-block" style="color:#BFC8C2;"></i>
+                            <span style="color:#7B857F;">Belum ada data barang</span>
                         </td></tr>
                     @endforelse
                 </tbody>

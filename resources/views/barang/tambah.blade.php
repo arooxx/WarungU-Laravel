@@ -39,9 +39,9 @@
                     @if(auth()->user()->isPemilik() && !$semuaWarung)
                         @php $namaW = $warungList->firstWhere('id_warung', $idWarungSimpan)?->nama_warung ?? ''; @endphp
                         <div class="mb-3 p-2 rounded-3 d-flex align-items-center gap-2"
-                             style="background:#f0eeff;border:1px solid #d8d4ff;font-size:.83rem;">
-                            <i class="fas fa-store" style="color:#6C63FF;"></i>
-                            Barang akan ditambahkan ke: <strong style="color:#6C63FF;">{{ $namaW }}</strong>
+                             style="background:#E6F2EA;border:1px solid #C9E4D4;font-size:.83rem;">
+                            <i class="fas fa-store" style="color:#1F7A4D;"></i>
+                            Barang akan ditambahkan ke: <strong style="color:#1F7A4D;">{{ $namaW }}</strong>
                         </div>
                     @endif
 
@@ -97,13 +97,13 @@
                     </div>
 
                     {{-- Baris 4: Satuan & ketengan --}}
-                    <div class="mb-3 p-3 rounded-3" style="background:#fafbff;border:1.5px solid var(--border);">
+                    <div class="mb-3 p-3 rounded-3" style="background:#F7F9F7;border:1.5px solid var(--border);">
                         <div class="form-check mb-2">
                             <input class="form-check-input" type="checkbox" id="cekSatuan"
                                    {{ old('bisa_satuan') ? 'checked' : '' }}>
                             <input type="hidden" name="bisa_satuan" id="hiddenBisaSatuan" value="{{ old('bisa_satuan') ? 'ya' : 'tidak' }}">
                             <label class="form-check-label fw-semibold" for="cekSatuan" style="font-size:.87rem;">
-                                <i class="fas fa-circle me-1" style="color:#00b894;font-size:.7rem;"></i>
+                                <i class="fas fa-circle me-1" style="color:#2E9E68;font-size:.7rem;"></i>
                                 Bisa dijual per satuan / ketengan
                             </label>
                         </div>
@@ -112,21 +112,21 @@
                         <div id="boxSatuan" style="display:{{ old('bisa_satuan') ? 'block' : 'none' }};">
                             <div class="row g-2 mt-1">
                                 <div class="col-md-4">
-                                    <label style="font-size:.8rem;font-weight:600;color:#7a809a;">Isi per Pack</label>
+                                    <label style="font-size:.8rem;font-weight:600;color:#7B857F;">Isi per Pack</label>
                                     <input type="number" name="isi_per_pack" id="fldIsiPerPack"
                                            class="form-control form-control-sm" min="1"
                                            value="{{ old('isi_per_pack', 12) }}" placeholder="mis: 12">
-                                    <div style="font-size:.72rem;color:#7a809a;margin-top:3px;">1 bungkus = ? satuan</div>
+                                    <div style="font-size:.72rem;color:#7B857F;margin-top:3px;">1 bungkus = ? satuan</div>
                                 </div>
                                 <div class="col-md-4">
-                                    <label style="font-size:.8rem;font-weight:600;color:#7a809a;">Satuan Terkecil</label>
+                                    <label style="font-size:.8rem;font-weight:600;color:#7B857F;">Satuan Terkecil</label>
                                     <input type="text" name="satuan_kecil" id="fldSatuanKecil"
                                            class="form-control form-control-sm"
                                            value="{{ old('satuan', 'batang') }}"
                                            placeholder="mis: batang, biji, sachet...">
                                 </div>
                                 <div class="col-md-4">
-                                    <label style="font-size:.8rem;font-weight:600;color:#7a809a;">Harga per Satuan</label>
+                                    <label style="font-size:.8rem;font-weight:600;color:#7B857F;">Harga per Satuan</label>
                                     <div class="input-group input-group-sm">
                                         <span class="input-group-text">Rp</span>
                                         <input type="number" name="harga_satuan" id="fldHargaSatuan"
@@ -140,7 +140,7 @@
                         <div id="boxSatuanBiasa" style="display:{{ old('bisa_satuan') ? 'none' : 'block' }};">
                             <div class="row g-2 mt-1">
                                 <div class="col-md-4">
-                                    <label style="font-size:.8rem;font-weight:600;color:#7a809a;">Satuan</label>
+                                    <label style="font-size:.8rem;font-weight:600;color:#7B857F;">Satuan</label>
                                     <input type="text" name="satuan_biasa" id="fldSatuanBiasa"
                                            class="form-control form-control-sm"
                                            value="{{ old('satuan', 'pcs') }}"
@@ -153,7 +153,7 @@
                     {{-- Baris 5: stok --}}
                     <div class="row g-3 mb-4">
                         <div class="col-md-4">
-                            <label class="form-label fw-semibold" style="font-size:.85rem;">Stok Awal <small style="color:#7a809a;">(satuan terkecil)</small></label>
+                            <label class="form-label fw-semibold" style="font-size:.85rem;">Stok Awal <small style="color:#7B857F;">(satuan terkecil)</small></label>
                             <input type="number" name="stok" class="form-control" min="0" value="{{ old('stok', 0) }}">
                         </div>
                     </div>

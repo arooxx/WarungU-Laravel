@@ -12,11 +12,8 @@
 <div class="auth-wrapper">
     <div class="auth-card">
         <div class="text-center mb-4">
-            <div style="width:56px;height:56px;background:linear-gradient(135deg,#6C63FF,#9b5de5);border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;box-shadow:0 8px 20px rgba(108,99,255,.3);">
-                <i class="fas fa-store" style="color:#fff;font-size:1.4rem;"></i>
-            </div>
             <div class="brand-title">WarungU</div>
-            <p style="color:#7a809a;font-size:.83rem;margin-top:4px;">Masuk ke akun Anda</p>
+            <p style="color:#7B857F;font-size:.83rem;margin-top:4px;">Masuk ke akun Anda</p>
         </div>
 
         @if($errors->has('login'))
@@ -51,7 +48,7 @@
             </div>
             <div class="mb-3 d-flex align-items-center gap-2" style="font-size:.83rem;">
                 <input type="checkbox" name="remember_me" id="remember_me" style="width:16px;height:16px;">
-                <label for="remember_me" style="color:#7a809a;margin:0;cursor:pointer;">Ingat saya selama 30 hari</label>
+                <label for="remember_me" style="color:#7B857F;margin:0;cursor:pointer;">Ingat saya selama 30 hari</label>
             </div>
             <button type="submit" class="btn btn-primary w-100" style="border-radius:8px;padding:10px;font-weight:700;">
                 <i class="fas fa-sign-in-alt me-2"></i>Masuk
@@ -59,9 +56,9 @@
         </form>
 
         <div class="auth-divider">atau</div>
-        <div class="text-center" style="font-size:.83rem;color:#7a809a;">
+        <div class="text-center" style="font-size:.83rem;color:#7B857F;">
             Belum punya akun?
-            <a href="{{ route('register') }}" style="color:#6C63FF;font-weight:600;">Daftar di sini</a>
+            <a href="{{ route('register') }}" style="color:#1F7A4D;font-weight:600;">Daftar di sini</a>
         </div>
     </div>
 </div>

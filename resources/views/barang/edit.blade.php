@@ -65,13 +65,13 @@
                         </div>
                     </div>
 
-                    <div class="mb-3 p-3 rounded-3" style="background:#fafbff;border:1.5px solid var(--border);">
+                    <div class="mb-3 p-3 rounded-3" style="background:#F7F9F7;border:1.5px solid var(--border);">
                         <div class="form-check mb-2">
                             <input class="form-check-input" type="checkbox" name="bisa_satuan" id="cekSatuan"
                                    {{ old('bisa_satuan', $barang->bisa_satuan) === 'ya' ? 'checked' : '' }}
                                    onchange="toggleSatuan(this.checked)">
                             <label class="form-check-label fw-semibold" for="cekSatuan" style="font-size:.87rem;">
-                                <i class="fas fa-circle me-1" style="color:#00b894;font-size:.7rem;"></i>
+                                <i class="fas fa-circle me-1" style="color:#2E9E68;font-size:.7rem;"></i>
                                 Bisa dijual per satuan / ketengan
                             </label>
                         </div>
@@ -80,15 +80,15 @@
                         {{-- FIX: Satu set field, bukan dua set — dikontrol JS enable/disable --}}
                         <div class="row g-2">
                             <div class="col-md-4" id="wrapIsiPack" style="display:{{ $isSatuan ? 'block' : 'none' }};">
-                                <label style="font-size:.8rem;font-weight:600;color:#7a809a;">Isi per Pack</label>
+                                <label style="font-size:.8rem;font-weight:600;color:#7B857F;">Isi per Pack</label>
                                 <input type="number" id="fldIsiPerPack" name="isi_per_pack"
                                        class="form-control form-control-sm" min="1"
                                        value="{{ old('isi_per_pack', $barang->isi_per_pack) }}"
                                        {{ !$isSatuan ? 'disabled' : '' }}>
-                                <div style="font-size:.72rem;color:#7a809a;margin-top:3px;">1 bungkus = ? satuan</div>
+                                <div style="font-size:.72rem;color:#7B857F;margin-top:3px;">1 bungkus = ? satuan</div>
                             </div>
                             <div class="col-md-4">
-                                <label style="font-size:.8rem;font-weight:600;color:#7a809a;" id="labelSatuan">
+                                <label style="font-size:.8rem;font-weight:600;color:#7B857F;" id="labelSatuan">
                                     {{ $isSatuan ? 'Satuan Terkecil' : 'Satuan' }}
                                 </label>
                                 <input type="text" name="satuan" id="fldSatuan"
@@ -97,7 +97,7 @@
                                        placeholder="mis: pcs, batang, botol...">
                             </div>
                             <div class="col-md-4" id="wrapHargaSatuan" style="display:{{ $isSatuan ? 'block' : 'none' }};">
-                                <label style="font-size:.8rem;font-weight:600;color:#7a809a;">Harga per Satuan</label>
+                                <label style="font-size:.8rem;font-weight:600;color:#7B857F;">Harga per Satuan</label>
                                 <div class="input-group input-group-sm">
                                     <span class="input-group-text">Rp</span>
                                     <input type="number" id="fldHargaSatuan" name="harga_satuan"
@@ -114,7 +114,7 @@
 
                     <div class="row g-3 mb-4">
                         <div class="col-md-4">
-                            <label class="form-label fw-semibold" style="font-size:.85rem;">Stok <small style="color:#7a809a;">(satuan terkecil)</small></label>
+                            <label class="form-label fw-semibold" style="font-size:.85rem;">Stok <small style="color:#7B857F;">(satuan terkecil)</small></label>
                             <input type="number" name="stok" class="form-control" min="0" value="{{ old('stok', $barang->stok) }}">
                         </div>
                     </div>

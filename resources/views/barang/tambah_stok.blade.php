@@ -35,9 +35,9 @@
                             $namaWarungAktif   = $filterDaftarLocal->firstWhere('id_warung', $idWarungAktif)?->nama_warung ?? '';
                         @endphp
                         <div class="mb-3 p-2 rounded-3 d-flex align-items-center gap-2"
-                             style="background:#f0eeff;border:1px solid #d8d4ff;font-size:.83rem;">
-                            <i class="fas fa-store" style="color:#6C63FF;"></i>
-                            Filter barang: <strong style="color:#6C63FF;">{{ $namaWarungAktif }}</strong>
+                             style="background:#E6F2EA;border:1px solid #C9E4D4;font-size:.83rem;">
+                            <i class="fas fa-store" style="color:#1F7A4D;"></i>
+                            Filter barang: <strong style="color:#1F7A4D;">{{ $namaWarungAktif }}</strong>
                         </div>
                     @endif
                 @endif
@@ -75,22 +75,22 @@
                         </select>
                     </div>
 
-                    <div id="infoBox" class="mb-3 p-3 rounded-3" style="background:#f0eeff;border:1px solid #d8d4ff;display:none;">
-                        <div style="font-size:.78rem;font-weight:700;color:#6C63FF;text-transform:uppercase;margin-bottom:6px;">Info Barang</div>
+                    <div id="infoBox" class="mb-3 p-3 rounded-3" style="background:#E6F2EA;border:1px solid #C9E4D4;display:none;">
+                        <div style="font-size:.78rem;font-weight:700;color:#1F7A4D;text-transform:uppercase;margin-bottom:6px;">Info Barang</div>
                         <div style="font-size:.83rem;display:flex;justify-content:space-between;">
-                            <span style="color:#7a809a;">Stok saat ini</span>
+                            <span style="color:#7B857F;">Stok saat ini</span>
                             <strong id="stokSaatIni">—</strong>
                         </div>
                         <div id="infoWarungBadge" style="margin-top:4px;"></div>
-                        <div id="satuanInfo" style="font-size:.78rem;color:#7a809a;margin-top:4px;"></div>
+                        <div id="satuanInfo" style="font-size:.78rem;color:#7B857F;margin-top:4px;"></div>
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label fw-semibold" style="font-size:.85rem;">
-                            Jumlah Tambah * <span id="satuanLabel" style="font-weight:400;color:#7a809a;"></span>
+                            Jumlah Tambah * <span id="satuanLabel" style="font-weight:400;color:#7B857F;"></span>
                         </label>
                         <input type="number" name="jumlah" id="inputJumlah" class="form-control" min="1" required oninput="updateKonversi()">
-                        <div id="konversiInfo" style="font-size:.78rem;color:#6C63FF;margin-top:4px;font-weight:600;"></div>
+                        <div id="konversiInfo" style="font-size:.78rem;color:#1F7A4D;margin-top:4px;font-weight:600;"></div>
                     </div>
 
                     <div class="mb-4">
@@ -132,25 +132,25 @@
                         <tbody>
                             @foreach($riwayat as $r)
                                 <tr>
-                                    <td style="font-size:.78rem;color:#7a809a;white-space:nowrap;">{{ $r->tanggal->format('d/m H:i') }}</td>
+                                    <td style="font-size:.78rem;color:#7B857F;white-space:nowrap;">{{ $r->tanggal->format('d/m H:i') }}</td>
                                     <td style="font-weight:600;font-size:.85rem;">{{ $r->barang->nama_barang ?? '—' }}</td>
                                     @if(auth()->user()->isPemilik())
-                                        <td><span style="background:#e8e6ff;color:#6C63FF;padding:2px 7px;border-radius:6px;font-size:.75rem;">{{ $r->barang->warung->nama_warung ?? '—' }}</span></td>
+                                        <td><span style="background:#DDEFE4;color:#1F7A4D;padding:2px 7px;border-radius:6px;font-size:.75rem;">{{ $r->barang->warung->nama_warung ?? '—' }}</span></td>
                                     @endif
                                     <td class="text-center">
-                                        <span style="background:#e0f7f3;color:#00b894;padding:3px 10px;border-radius:6px;font-size:.8rem;font-weight:700;">
+                                        <span style="background:#E3F4EA;color:#2E9E68;padding:3px 10px;border-radius:6px;font-size:.8rem;font-weight:700;">
                                             +{{ $r->jumlah }} {{ $r->barang->satuan ?? '' }}
                                         </span>
                                     </td>
                                     <td style="font-size:.82rem;">{{ $r->user->nama ?? '—' }}</td>
-                                    <td style="font-size:.8rem;color:#7a809a;">{{ $r->keterangan ?: '—' }}</td>
+                                    <td style="font-size:.8rem;color:#7B857F;">{{ $r->keterangan ?: '—' }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
                 @else
                     <div class="p-5 text-center text-muted" style="font-size:.85rem;">
-                        <i class="fas fa-history fa-2x mb-2 d-block" style="color:#c0c5d8;"></i>Belum ada riwayat stok masuk
+                        <i class="fas fa-history fa-2x mb-2 d-block" style="color:#BFC8C2;"></i>Belum ada riwayat stok masuk
                     </div>
                 @endif
             </div>
@@ -170,7 +170,7 @@ function updateInfo(sel) {
     document.getElementById('konversiInfo').textContent = '';
     if (opt.dataset.warung) {
         document.getElementById('infoWarungBadge').innerHTML =
-            '<span style="background:#e8e6ff;color:#6C63FF;padding:2px 8px;border-radius:5px;font-size:.75rem;">' + opt.dataset.warung + '</span>';
+            '<span style="background:#DDEFE4;color:#1F7A4D;padding:2px 8px;border-radius:5px;font-size:.75rem;">' + opt.dataset.warung + '</span>';
     }
     document.getElementById('satuanInfo').textContent =
         (opt.dataset.bisa === 'ya' && parseInt(opt.dataset.isi) > 1)

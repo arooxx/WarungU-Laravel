@@ -19,7 +19,7 @@
         .toast-msg { animation-duration: .15s !important; }
         @keyframes fadeIn { from{opacity:0;transform:translateY(-6px);}to{opacity:1;} }
         /* Hilangkan flash putih saat load halaman */
-        html { background: #f5f6fa; }
+        html { background: #EDEFEC; }
     </style>
     @stack('styles')
 </head>
@@ -78,21 +78,21 @@
 
 {{-- Flash alerts --}}
 @if(session('success'))
-    <div style="padding: 12px 24px 0;">
+    <div class="flash-wrap">
         <div class="alert alert-success alert-auto py-2" style="font-size:.83rem;border-radius:10px;">
             <i class="fas fa-check-circle me-1"></i>{{ session('success') }}
         </div>
     </div>
 @endif
 @if(session('error_akses'))
-    <div style="padding: 12px 24px 0;">
+    <div class="flash-wrap">
         <div class="alert alert-warning alert-auto py-2" style="font-size:.83rem;border-radius:10px;">
             <i class="fas fa-exclamation-triangle me-1"></i>{{ session('error_akses') }}
         </div>
     </div>
 @endif
 @if(session('error_msg'))
-    <div style="padding: 12px 24px 0;">
+    <div class="flash-wrap">
         <div class="alert alert-danger alert-auto py-2" style="font-size:.83rem;border-radius:10px;">
             <i class="fas fa-times-circle me-1"></i>{{ session('error_msg') }}
         </div>

@@ -26,7 +26,7 @@
                     <div class="mb-3">
                         <label class="form-label fw-semibold" style="font-size:.85rem;">Password Baru</label>
                         <input type="password" name="password" class="form-control" placeholder="Kosongkan jika tidak ingin mengubah">
-                        <small style="color:#7a809a;font-size:.75rem;">Minimal 6 karakter jika diisi</small>
+                        <small style="color:#7B857F;font-size:.75rem;">Minimal 6 karakter jika diisi</small>
                     </div>
                     <div class="mb-4">
                         <label class="form-label fw-semibold" style="font-size:.85rem;">Warung</label>

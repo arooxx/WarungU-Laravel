@@ -56,14 +56,14 @@
                     <tbody>
                         @foreach($warung as $i => $w)
                             <tr>
-                                <td style="color:#7a809a;">{{ $i+1 }}</td>
+                                <td style="color:#7B857F;">{{ $i+1 }}</td>
                                 <td style="font-weight:600;">{{ $w->nama_warung }}</td>
-                                <td><small style="color:#7a809a;">{{ $w->alamat ?? '—' }}</small></td>
+                                <td><small style="color:#7B857F;">{{ $w->alamat ?? '—' }}</small></td>
                                 <td>{{ $w->no_hp ?? '—' }}</td>
-                                <td class="text-center"><span style="background:#e8e6ff;color:#6C63FF;padding:2px 9px;border-radius:6px;font-size:.78rem;font-weight:600;">{{ $w->jml_pegawai }}</span></td>
-                                <td class="text-center"><span style="background:#e0f7f3;color:#00b894;padding:2px 9px;border-radius:6px;font-size:.78rem;font-weight:600;">{{ $w->jml_barang }}</span></td>
+                                <td class="text-center"><span style="background:#DDEFE4;color:#1F7A4D;padding:2px 9px;border-radius:6px;font-size:.78rem;font-weight:600;">{{ $w->jml_pegawai }}</span></td>
+                                <td class="text-center"><span style="background:#E3F4EA;color:#2E9E68;padding:2px 9px;border-radius:6px;font-size:.78rem;font-weight:600;">{{ $w->jml_barang }}</span></td>
                                 <td class="text-center">
-                                    <a href="{{ route('warung.edit', $w->id_warung) }}" style="background:#e8e6ff;color:#6C63FF;padding:3px 10px;border-radius:7px;font-size:.75rem;font-weight:600;">Edit</a>
+                                    <a href="{{ route('warung.edit', $w->id_warung) }}" style="background:#DDEFE4;color:#1F7A4D;padding:3px 10px;border-radius:7px;font-size:.75rem;font-weight:600;">Edit</a>
                                     <a href="#" onclick="hapusWarung('{{ route('warung.destroy', $w->id_warung) }}','{{ addslashes($w->nama_warung) }}')"
                                        style="background:#fff0f0;color:var(--danger);padding:3px 10px;border-radius:7px;font-size:.75rem;font-weight:600;margin-left:4px;">Hapus</a>
                                     <form id="form-warung-{{ $w->id_warung }}" method="POST" action="{{ route('warung.destroy', $w->id_warung) }}" style="display:none;">

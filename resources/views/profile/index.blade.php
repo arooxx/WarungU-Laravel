@@ -7,7 +7,7 @@
 @push('styles')
 <style>
     .profile-hero {
-        background: {{ auth()->user()->isPemilik() ? 'linear-gradient(135deg,#6C63FF,#9b5de5)' : 'linear-gradient(135deg,#00b894,#00cec9)' }};
+        background: {{ auth()->user()->isPemilik() ? '#1F7A4D' : '#2E9E68' }};
         border-radius: 20px;
         padding: 36px 28px 80px;
         position: relative;
@@ -52,13 +52,13 @@
     }
     .profile-card-wrap {
         background:#fff; border-radius:20px;
-        box-shadow:0 4px 24px rgba(108,99,255,.08);
+        box-shadow:0 4px 24px rgba(31,122,77,.08);
         margin-top:-48px; padding:20px;
         position:relative; z-index:2;
     }
     .info-row {
         display:flex; align-items:center; gap:12px;
-        padding:12px 0; border-bottom:1px dashed #f0f2f8; font-size:.85rem;
+        padding:12px 0; border-bottom:1px dashed #EEF1EE; font-size:.85rem;
     }
     .info-row:last-child { border-bottom:none; }
     .info-icon {
@@ -66,45 +66,45 @@
         display:flex; align-items:center; justify-content:center;
         font-size:.85rem; flex-shrink:0;
     }
-    .info-label { color:#7a809a; font-size:.78rem; margin-bottom:1px; }
-    .info-value { font-weight:700; color:#1e2438; }
+    .info-label { color:#7B857F; font-size:.78rem; margin-bottom:1px; }
+    .info-value { font-weight:700; color:#14211A; }
     .form-section-title {
-        font-size:.72rem; font-weight:800; color:#7a809a;
+        font-size:.72rem; font-weight:800; color:#7B857F;
         letter-spacing:.08em; text-transform:uppercase;
         display:flex; align-items:center; gap:8px; margin-bottom:18px;
     }
-    .form-section-title::after { content:''; flex:1; height:1px; background:#e4e7f0; }
+    .form-section-title::after { content:''; flex:1; height:1px; background:#E3E7E3; }
     .custom-input {
-        border:2px solid #e4e7f0; border-radius:10px;
+        border:2px solid #E3E7E3; border-radius:10px;
         padding:10px 14px; font-size:.88rem; transition:border-color .2s;
     }
-    .custom-input:focus { border-color:#6C63FF; box-shadow:0 0 0 3px rgba(108,99,255,.12); }
+    .custom-input:focus { border-color:#1F7A4D; box-shadow:0 0 0 3px rgba(31,122,77,.12); }
     .btn-save {
-        background:linear-gradient(135deg,#6C63FF,#9b5de5);
+        background:#1F7A4D;
         color:#fff; border:none; border-radius:10px;
         padding:10px 24px; font-weight:700; font-size:.88rem;
     }
-    .btn-save:hover { transform:translateY(-1px); box-shadow:0 6px 18px rgba(108,99,255,.35); color:#fff; }
+    .btn-save:hover { transform:translateY(-1px); box-shadow:0 6px 18px rgba(31,122,77,.35); color:#fff; }
     .btn-pw {
-        background:linear-gradient(135deg,#f39c12,#e67e22);
+        background:#E8920F;
         color:#fff; border:none; border-radius:10px;
         padding:10px 24px; font-weight:700; font-size:.88rem;
     }
     .btn-pw:hover { transform:translateY(-1px); box-shadow:0 6px 18px rgba(243,156,18,.35); color:#fff; }
     .btn-un {
-        background:linear-gradient(135deg,#00b894,#00cec9);
+        background:#2E9E68;
         color:#fff; border:none; border-radius:10px;
         padding:10px 24px; font-weight:700; font-size:.88rem;
     }
     .btn-un:hover { transform:translateY(-1px); box-shadow:0 6px 18px rgba(0,184,148,.35); color:#fff; }
     .pw-strength { height:4px; border-radius:2px; transition:all .3s; }
     .input-icon-wrap { position:relative; }
-    .input-icon-wrap .form-icon { position:absolute; left:13px; top:50%; transform:translateY(-50%); color:#b0b5c9; font-size:.85rem; }
+    .input-icon-wrap .form-icon { position:absolute; left:13px; top:50%; transform:translateY(-50%); color:#AEB8B2; font-size:.85rem; }
     .input-icon-wrap .custom-input { padding-left:36px; }
-    .input-icon-wrap .toggle-pw { position:absolute; right:13px; top:50%; transform:translateY(-50%); color:#b0b5c9; cursor:pointer; font-size:.85rem; }
-    .stats-chip { background:#f5f4ff; border-radius:12px; padding:10px 16px; text-align:center; flex:1; }
-    .stats-chip .chip-val { font-size:1.2rem; font-weight:800; color:{{ auth()->user()->isPemilik() ? '#6C63FF' : '#00b894' }}; }
-    .stats-chip .chip-lbl { font-size:.72rem; color:#7a809a; margin-top:2px; }
+    .input-icon-wrap .toggle-pw { position:absolute; right:13px; top:50%; transform:translateY(-50%); color:#AEB8B2; cursor:pointer; font-size:.85rem; }
+    .stats-chip { background:#F1F7F3; border-radius:12px; padding:10px 16px; text-align:center; flex:1; }
+    .stats-chip .chip-val { font-size:1.2rem; font-weight:800; color:{{ auth()->user()->isPemilik() ? '#1F7A4D' : '#2E9E68' }}; }
+    .stats-chip .chip-lbl { font-size:.72rem; color:#7B857F; margin-top:2px; }
 </style>
 @endpush
 
@@ -113,7 +113,7 @@
     $u         = $user;
     $initial   = strtoupper(substr($u->nama, 0, 1));
     $isPemilik = $u->isPemilik();
-    $roleColor = $isPemilik ? '#6C63FF' : '#00b894';
+    $roleColor = $isPemilik ? '#1F7A4D' : '#2E9E68';
 @endphp
 
 <div class="row g-4">
@@ -144,8 +144,8 @@
             </div>
 
             <div class="info-row">
-                <div class="info-icon" style="background:#e8e6ff;">
-                    <i class="fas fa-user" style="color:#6C63FF;"></i>
+                <div class="info-icon" style="background:#DDEFE4;">
+                    <i class="fas fa-user" style="color:#1F7A4D;"></i>
                 </div>
                 <div>
                     <div class="info-label">Username</div>
@@ -153,8 +153,8 @@
                 </div>
             </div>
             <div class="info-row">
-                <div class="info-icon" style="background:#e0f7f3;">
-                    <i class="fas fa-store" style="color:#00b894;"></i>
+                <div class="info-icon" style="background:#E3F4EA;">
+                    <i class="fas fa-store" style="color:#2E9E68;"></i>
                 </div>
                 <div>
                     <div class="info-label">Warung</div>
@@ -171,7 +171,7 @@
                 </div>
             </div>
             <div class="info-row">
-                <div class="info-icon" style="background:{{ $isPemilik ? '#e8e6ff' : '#e0f7f3' }};">
+                <div class="info-icon" style="background:{{ $isPemilik ? '#DDEFE4' : '#E3F4EA' }};">
                     <i class="fas fa-{{ $isPemilik ? 'crown' : 'user-check' }}" style="color:{{ $roleColor }};"></i>
                 </div>
                 <div>
@@ -188,7 +188,7 @@
         {{-- Edit Nama --}}
         <div class="card-modern p-4 mb-4">
             <div class="form-section-title">
-                <i class="fas fa-pen" style="color:#6C63FF;"></i> Edit Nama
+                <i class="fas fa-pen" style="color:#1F7A4D;"></i> Edit Nama
             </div>
             <form method="POST" action="{{ route('profile.nama') }}">
                 @csrf
@@ -209,9 +209,9 @@
         {{-- Ubah Username --}}
         <div class="card-modern p-4 mb-4">
             <div class="form-section-title">
-                <i class="fas fa-at" style="color:#00b894;"></i> Ubah Username
+                <i class="fas fa-at" style="color:#2E9E68;"></i> Ubah Username
             </div>
-            <div class="mb-3 p-3" style="background:#f5fffe;border:1.5px dashed #00b894;border-radius:10px;font-size:.8rem;color:#00845e;">
+            <div class="mb-3 p-3" style="background:#F3FAF6;border:1.5px dashed #2E9E68;border-radius:10px;font-size:.8rem;color:#00845e;">
                 <i class="fas fa-info-circle me-1"></i>
                 Username digunakan untuk login. Wajib memasukkan password untuk konfirmasi.
             </div>
@@ -269,8 +269,8 @@
                         <i class="fas fa-eye toggle-pw" onclick="togglePw('pwBaru',this)"></i>
                     </div>
                     <div class="mt-2">
-                        <div class="pw-strength" id="pwStrengthBar" style="background:#e4e7f0;width:0%;"></div>
-                        <div id="pwStrengthLabel" style="font-size:.72rem;color:#7a809a;margin-top:4px;"></div>
+                        <div class="pw-strength" id="pwStrengthBar" style="background:#E3E7E3;width:0%;"></div>
+                        <div id="pwStrengthLabel" style="font-size:.72rem;color:#7B857F;margin-top:4px;"></div>
                     </div>
                 </div>
                 <div class="mb-4">
@@ -300,7 +300,7 @@ function cekUsername(val) {
     var valid = /^[a-zA-Z0-9_]{3,30}$/.test(val);
     if (!val) { lbl.textContent = ''; return; }
     lbl.textContent = valid ? '✓ Format username valid' : '✗ Hanya huruf, angka, underscore. Min 3, maks 30 karakter.';
-    lbl.style.color = valid ? '#00b894' : '#FF5E57';
+    lbl.style.color = valid ? '#2E9E68' : '#FF5E57';
 }
 function togglePw(id, icon) {
     var input = document.getElementById(id);
@@ -318,11 +318,11 @@ function cekKekuatan(pw) {
     if (/[0-9]/.test(pw)) s++;
     if (/[^A-Za-z0-9]/.test(pw)) s++;
     var c = [
-        {w:'0%',  bg:'#e4e7f0', txt:''},
+        {w:'0%',  bg:'#E3E7E3', txt:''},
         {w:'25%', bg:'#FF5E57', txt:'Lemah'},
         {w:'50%', bg:'#f39c12', txt:'Sedang'},
-        {w:'75%', bg:'#00b894', txt:'Kuat'},
-        {w:'100%',bg:'#6C63FF', txt:'Sangat Kuat'}
+        {w:'75%', bg:'#2E9E68', txt:'Kuat'},
+        {w:'100%',bg:'#1F7A4D', txt:'Sangat Kuat'}
     ][Math.min(s, 4)];
     bar.style.width = c.w; bar.style.background = c.bg;
     lbl.textContent = c.txt; lbl.style.color = c.bg;
@@ -333,7 +333,7 @@ function cekMatch() {
     var lbl     = document.getElementById('matchLabel');
     if (!konfirm) { lbl.textContent = ''; return; }
     lbl.textContent = baru === konfirm ? '✓ Password cocok' : '✗ Password tidak cocok';
-    lbl.style.color = baru === konfirm ? '#00b894' : '#FF5E57';
+    lbl.style.color = baru === konfirm ? '#2E9E68' : '#FF5E57';
 }
 </script>
 @endpush

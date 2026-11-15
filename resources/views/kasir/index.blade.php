@@ -24,9 +24,9 @@
     <div class="d-flex gap-2 align-items-center">
         @if(auth()->user()->isPemilik() && $daftarWarungList->count() > 1)
             <div class="d-flex align-items-center gap-1">
-                <i class="fas fa-store" style="color:#7a809a;font-size:.8rem;"></i>
+                <i class="fas fa-store" style="color:#7B857F;font-size:.8rem;"></i>
                 <select id="pilihWarung" class="form-select form-select-sm"
-                        style="width:auto;border-radius:8px;font-size:.8rem;border-color:#e4e7f0;min-width:160px;"
+                        style="width:auto;border-radius:8px;font-size:.8rem;border-color:#E3E7E3;min-width:160px;"
                         onchange="gantiWarung(this.value)">
                     @foreach($daftarWarungList as $w)
                         <option value="{{ $w->id_warung }}" {{ $w->id_warung == $idWarung ? 'selected' : '' }}>
@@ -57,7 +57,7 @@
             <div class="row g-2 align-items-center">
                 <div class="col-md-5">
                     <div class="input-group input-group-sm">
-                        <span class="input-group-text" style="background:#f8f9fc;"><i class="fas fa-search" style="color:#7a809a;font-size:.8rem;"></i></span>
+                        <span class="input-group-text" style="background:#F7F9F7;"><i class="fas fa-search" style="color:#7B857F;font-size:.8rem;"></i></span>
                         <input type="text" id="searchBarang" class="form-control"
                                placeholder="Cari nama barang..." style="font-size:.85rem;">
                     </div>
@@ -72,7 +72,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="input-group input-group-sm">
-                        <span class="input-group-text" style="background:#f8f9fc;"><i class="fas fa-barcode" style="color:#7a809a;font-size:.8rem;"></i></span>
+                        <span class="input-group-text" style="background:#F7F9F7;"><i class="fas fa-barcode" style="color:#7B857F;font-size:.8rem;"></i></span>
                         <input type="text" id="inputBarcode" class="form-control"
                                placeholder="Ketik barcode + Enter" style="font-size:.83rem;" autofocus>
                     </div>
@@ -130,7 +130,7 @@
         </div>
 
         <div class="cart-items" id="cartItems">
-            <div id="emptyMsg" class="text-center py-5" style="color:#c0c5d8;">
+            <div id="emptyMsg" class="text-center py-5" style="color:#BFC8C2;">
                 <i class="fas fa-shopping-cart fa-2x mb-3 d-block"></i>
                 <span style="font-size:.85rem;">Keranjang masih kosong</span>
             </div>
@@ -138,7 +138,7 @@
 
         <div class="cart-footer">
             <div class="cart-total-row">
-                <span style="color:#7a809a;">Total Item</span>
+                <span style="color:#7B857F;">Total Item</span>
                 <span id="totalItem" style="font-weight:600;">0</span>
             </div>
             <div class="cart-total-row main">
@@ -148,16 +148,16 @@
 
             {{-- Metode Pembayaran --}}
             <div class="mb-2 mt-2">
-                <label style="font-size:.78rem;font-weight:600;color:#7a809a;text-transform:uppercase;letter-spacing:.04em;">Metode Pembayaran</label>
+                <label style="font-size:.78rem;font-weight:600;color:#7B857F;text-transform:uppercase;letter-spacing:.04em;">Metode Pembayaran</label>
                 <div class="d-flex gap-2 mt-1">
                     <button type="button" id="btnCash" onclick="pilihMetode('cash')"
                         class="btn btn-sm flex-fill metode-btn active-metode"
-                        style="border-radius:8px;font-size:.82rem;border:2px solid #6C63FF;color:#6C63FF;background:#e8e6ff;">
+                        style="border-radius:8px;font-size:.82rem;border:2px solid #1F7A4D;color:#1F7A4D;background:#DDEFE4;">
                         <i class="fas fa-money-bill-wave me-1"></i>Cash
                     </button>
                     <button type="button" id="btnQris" onclick="pilihMetode('qris')"
                         class="btn btn-sm flex-fill metode-btn"
-                        style="border-radius:8px;font-size:.82rem;border:2px solid #e4e7f0;color:#7a809a;background:#fff;">
+                        style="border-radius:8px;font-size:.82rem;border:2px solid #E3E7E3;color:#7B857F;background:#fff;">
                         <i class="fas fa-qrcode me-1"></i>QRIS
                     </button>
                 </div>
@@ -165,18 +165,18 @@
             </div>
 
             <div class="mb-2 mt-2" id="wrapBayar">
-                <label style="font-size:.78rem;font-weight:600;color:#7a809a;text-transform:uppercase;letter-spacing:.04em;">Uang Bayar</label>
+                <label style="font-size:.78rem;font-weight:600;color:#7B857F;text-transform:uppercase;letter-spacing:.04em;">Uang Bayar</label>
                 <input type="number" id="inputBayar" class="form-control form-control-sm mt-1"
                        placeholder="0" oninput="hitungKembalian()"
                        style="font-size:.9rem;font-weight:600;border-radius:8px;">
             </div>
 
             <div class="kembalian-box" id="wrapKembalian">
-                <span style="color:#7a809a;font-size:.82rem;">Kembalian</span>
+                <span style="color:#7B857F;font-size:.82rem;">Kembalian</span>
                 <strong id="nilaiKembalian">Rp 0</strong>
             </div>
 
-            <div id="infoQris" style="display:none;background:#e0f7f3;border-radius:8px;padding:8px 12px;margin-bottom:8px;font-size:.8rem;color:#00897b;">
+            <div id="infoQris" style="display:none;background:#E3F4EA;border-radius:8px;padding:8px 12px;margin-bottom:8px;font-size:.8rem;color:#1B7A5A;">
                 <i class="fas fa-info-circle me-1"></i>
                 Pembayaran QRIS — tidak perlu uang kembalian.<br>Arahkan pelanggan ke kode QR kasir.
             </div>
@@ -192,24 +192,24 @@
 <div class="modal fade" id="modalTipePenjualan" tabindex="-1">
     <div class="modal-dialog modal-sm modal-dialog-centered">
         <div class="modal-content" style="border-radius:16px;border:none;box-shadow:0 20px 60px rgba(0,0,0,.15);">
-            <div class="modal-header" style="border-bottom:1px solid #e4e7f0;padding:14px 18px;">
+            <div class="modal-header" style="border-bottom:1px solid #E3E7E3;padding:14px 18px;">
                 <div>
                     <h6 class="modal-title mb-0" id="modalTipeJudul" style="font-weight:700;"></h6>
-                    <small id="modalTipeStok" style="color:#7a809a;"></small>
+                    <small id="modalTipeStok" style="color:#7B857F;"></small>
                 </div>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body p-3">
-                <p style="font-size:.82rem;color:#7a809a;margin-bottom:12px;">Pilih cara penjualan:</p>
+                <p style="font-size:.82rem;color:#7B857F;margin-bottom:12px;">Pilih cara penjualan:</p>
                 <div class="tipe-option" id="optPack" onclick="pilihTipe('pack')">
-                    <div class="to-title"><i class="fas fa-box me-2" style="color:#6C63FF;"></i>Per Pack / Bungkus</div>
+                    <div class="to-title"><i class="fas fa-box me-2" style="color:#1F7A4D;"></i>Per Pack / Bungkus</div>
                     <div class="to-desc" id="descPack"></div>
                     <div class="to-price" id="pricePack"></div>
                 </div>
                 <div class="tipe-option" id="optSatuan" onclick="pilihTipe('satuan')">
-                    <div class="to-title"><i class="fas fa-circle me-2" style="color:#00b894;"></i>Per Satuan (Ketengan)</div>
+                    <div class="to-title"><i class="fas fa-circle me-2" style="color:#2E9E68;"></i>Per Satuan (Ketengan)</div>
                     <div class="to-desc" id="descSatuan"></div>
-                    <div class="to-price" id="priceSatuan" style="color:#00b894;"></div>
+                    <div class="to-price" id="priceSatuan" style="color:#2E9E68;"></div>
                 </div>
             </div>
         </div>
@@ -220,11 +220,11 @@
 <div class="modal fade" id="modalStruk" tabindex="-1">
     <div class="modal-dialog modal-sm modal-dialog-centered">
         <div class="modal-content" style="border-radius:16px;border:none;">
-            <div class="modal-header py-2" style="border-bottom:1px solid #e4e7f0;">
+            <div class="modal-header py-2" style="border-bottom:1px solid #E3E7E3;">
                 <h6 class="modal-title fw-bold"><i class="fas fa-receipt me-2" style="color:var(--primary);"></i>Struk Pembelian</h6>
             </div>
             <div class="modal-body" id="isiStruk" style="font-family:'Courier New',monospace;font-size:.78rem;"></div>
-            <div class="modal-footer py-2" style="border-top:1px solid #e4e7f0;">
+            <div class="modal-footer py-2" style="border-top:1px solid #E3E7E3;">
                 <button class="btn btn-sm btn-primary" style="border-radius:8px;" onclick="window.print()">
                     <i class="fas fa-print me-1"></i>Cetak
                 </button>
@@ -258,13 +258,13 @@ function pilihMetode(metode) {
     var infoQris      = document.getElementById('infoQris');
 
     if (metode === 'qris') {
-        btnQris.style.border = '2px solid #00b894'; btnQris.style.color = '#00b894'; btnQris.style.background = '#e0f7f3';
-        btnCash.style.border = '2px solid #e4e7f0'; btnCash.style.color = '#7a809a'; btnCash.style.background = '#fff';
+        btnQris.style.border = '2px solid #2E9E68'; btnQris.style.color = '#2E9E68'; btnQris.style.background = '#E3F4EA';
+        btnCash.style.border = '2px solid #E3E7E3'; btnCash.style.color = '#7B857F'; btnCash.style.background = '#fff';
         wrapBayar.style.display = 'none'; wrapKembalian.style.display = 'none'; infoQris.style.display = 'block';
         document.getElementById('inputBayar').value = keranjang.reduce((s,i) => s+i.subtotal, 0);
     } else {
-        btnCash.style.border = '2px solid #6C63FF'; btnCash.style.color = '#6C63FF'; btnCash.style.background = '#e8e6ff';
-        btnQris.style.border = '2px solid #e4e7f0'; btnQris.style.color = '#7a809a'; btnQris.style.background = '#fff';
+        btnCash.style.border = '2px solid #1F7A4D'; btnCash.style.color = '#1F7A4D'; btnCash.style.background = '#DDEFE4';
+        btnQris.style.border = '2px solid #E3E7E3'; btnQris.style.color = '#7B857F'; btnQris.style.background = '#fff';
         wrapBayar.style.display = ''; wrapKembalian.style.display = ''; infoQris.style.display = 'none';
         document.getElementById('inputBayar').value = '';
     }
@@ -318,7 +318,7 @@ function tambahKeKeranjang(barang, tipe) {
 function renderKeranjang() {
     var el = document.getElementById('cartItems');
     if (keranjang.length === 0) {
-        el.innerHTML = '<div id="emptyMsg" class="text-center py-5" style="color:#c0c5d8;"><i class="fas fa-shopping-cart fa-2x mb-3 d-block"></i><span style="font-size:.85rem;">Keranjang masih kosong</span></div>';
+        el.innerHTML = '<div id="emptyMsg" class="text-center py-5" style="color:#BFC8C2;"><i class="fas fa-shopping-cart fa-2x mb-3 d-block"></i><span style="font-size:.85rem;">Keranjang masih kosong</span></div>';
         document.getElementById('totalItem').textContent = '0';
         document.getElementById('totalHarga').textContent = 'Rp 0';
         document.getElementById('btnBayar').disabled = true;
@@ -328,14 +328,14 @@ function renderKeranjang() {
     keranjang.forEach(function(item, idx) {
         totalItem += item.qty; totalHarga += item.subtotal;
         var tipeBadge = item.tipe === 'satuan'
-            ? '<span style="background:#e0f7f3;color:#00b894;font-size:.62rem;padding:1px 6px;border-radius:5px;font-weight:600;">satuan</span>'
-            : '<span style="background:#e8e6ff;color:#6C63FF;font-size:.62rem;padding:1px 6px;border-radius:5px;font-weight:600;">pack</span>';
+            ? '<span style="background:#E3F4EA;color:#2E9E68;font-size:.62rem;padding:1px 6px;border-radius:5px;font-weight:600;">satuan</span>'
+            : '<span style="background:#DDEFE4;color:#1F7A4D;font-size:.62rem;padding:1px 6px;border-radius:5px;font-weight:600;">pack</span>';
         html += '<div class="cart-item">';
         html += '<div class="ci-name"><span>' + item.nama + ' ' + tipeBadge + '</span>';
         html += '<span style="cursor:pointer;color:#FF5E57;font-size:.8rem;" onclick="hapusItem('+idx+')"><i class="fas fa-times"></i></span></div>';
         html += '<div class="ci-ctrl"><div class="d-flex align-items-center gap-2">';
         html += '<button class="ci-qty-btn" onclick="ubahQty('+idx+',-1)">−</button>';
-        html += '<input type="number" value="' + item.qty + '" min="1" onchange="setQty('+idx+', this.value)" onclick="this.select()" style="width:52px;text-align:center;border:1.5px solid #e4e7f0;border-radius:7px;font-size:.88rem;font-weight:700;padding:2px 4px;color:#1e2438;">';
+        html += '<input type="number" value="' + item.qty + '" min="1" onchange="setQty('+idx+', this.value)" onclick="this.select()" style="width:52px;text-align:center;border:1.5px solid #E3E7E3;border-radius:7px;font-size:.88rem;font-weight:700;padding:2px 4px;color:#14211A;">';
         html += '<button class="ci-qty-btn" onclick="ubahQty('+idx+',1)">+</button>';
         html += '</div><span style="font-size:.85rem;color:var(--primary);font-weight:700;">Rp ' + item.subtotal.toLocaleString('id-ID') + '</span></div></div>';
     });
@@ -401,7 +401,7 @@ function hitungKembalian() {
     var total = keranjang.reduce((s,i) => s+i.subtotal, 0);
     var bayar = parseInt(document.getElementById('inputBayar').value) || 0;
     var el    = document.getElementById('nilaiKembalian');
-    if (el) { el.textContent = 'Rp ' + Math.max(0, bayar-total).toLocaleString('id-ID'); el.style.color = (bayar<total && bayar>0) ? '#FF5E57' : '#6C63FF'; }
+    if (el) { el.textContent = 'Rp ' + Math.max(0, bayar-total).toLocaleString('id-ID'); el.style.color = (bayar<total && bayar>0) ? '#FF5E57' : '#1F7A4D'; }
 }
 
 function prosesTransaksi() {
@@ -466,13 +466,13 @@ function tampilkanStruk(id, total, bayar, kembalian, metode, items) {
     var tgl = new Date().toLocaleString('id-ID');
     var wn  = '{{ addslashes($infoWarung->nama_warung ?? "WarungU") }}';
     var metodeLbl = metode === 'qris'
-        ? '<span style="background:#e0f7f3;color:#00b894;padding:1px 6px;border-radius:4px;font-size:.75rem;font-family:sans-serif;">QRIS</span>'
-        : '<span style="background:#e8e6ff;color:#6C63FF;padding:1px 6px;border-radius:4px;font-size:.75rem;font-family:sans-serif;">Cash</span>';
+        ? '<span style="background:#D3EEDF;color:#1B7A5A;padding:1px 6px;border-radius:4px;font-size:.75rem;font-family:sans-serif;">QRIS</span>'
+        : '<span style="background:#14573A;color:#fff;padding:1px 6px;border-radius:4px;font-size:.75rem;font-family:sans-serif;">Cash</span>';
     var html = '<div style="text-align:center;padding:10px 0 6px;"><strong style="font-size:.9rem;">' + wn + '</strong><br>';
     html += '<small>No: #' + id + '</small><br><small>' + tgl + '</small></div>';
     html += '<hr style="border-style:dashed;margin:6px 0;">';
     items.forEach(function(item) {
-        html += item.nama + ' <span style="color:#6C63FF;font-size:.75rem;">['+item.tipe+']</span><br>';
+        html += item.nama + ' <span style="color:#1F7A4D;font-size:.75rem;">['+item.tipe+']</span><br>';
         html += '  ' + item.qty + ' × Rp ' + item.harga.toLocaleString('id-ID') + ' = Rp ' + item.subtotal.toLocaleString('id-ID') + '<br>';
     });
     html += '<hr style="border-style:dashed;margin:6px 0;">';

@@ -36,8 +36,8 @@
             @foreach($menunggu as $m)
                 <tr>
                     <td style="font-weight:600;">{{ $m->nama }}</td>
-                    <td><code style="background:#f0eeff;color:#6C63FF;padding:2px 7px;border-radius:5px;font-size:.78rem;">{{ $m->username }}</code></td>
-                    <td style="font-size:.78rem;color:#7a809a;">{{ $m->created_at?->format('d M Y H:i') }}</td>
+                    <td><code style="background:#E6F2EA;color:#1F7A4D;padding:2px 7px;border-radius:5px;font-size:.78rem;">{{ $m->username }}</code></td>
+                    <td style="font-size:.78rem;color:#7B857F;">{{ $m->created_at?->format('d M Y H:i') }}</td>
                     <td>
                         <form method="POST" action="{{ route('pegawai.setujui', $m->id_user) }}" class="d-flex gap-2 align-items-center">
                             @csrf
@@ -82,7 +82,7 @@
                         <input type="text" name="username" class="form-control" required>
                     </div>
                     <div class="mb-2">
-                        <label class="form-label fw-semibold" style="font-size:.85rem;">Password <small style="color:#7a809a;">(min 6)</small></label>
+                        <label class="form-label fw-semibold" style="font-size:.85rem;">Password <small style="color:#7B857F;">(min 6)</small></label>
                         <input type="password" name="password" class="form-control" required>
                     </div>
                     <div class="mb-3">
@@ -119,26 +119,26 @@
                     <tbody>
                         @forelse($pegawai as $i => $p)
                             <tr>
-                                <td style="color:#7a809a;">{{ $i+1 }}</td>
+                                <td style="color:#7B857F;">{{ $i+1 }}</td>
                                 <td>
                                     <div style="display:flex;align-items:center;gap:8px;">
-                                        <div style="width:30px;height:30px;background:linear-gradient(135deg,#6C63FF,#9b5de5);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.75rem;font-weight:700;flex-shrink:0;">
+                                        <div style="width:30px;height:30px;background:#1F7A4D;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.75rem;font-weight:700;flex-shrink:0;">
                                             {{ strtoupper(substr($p->nama,0,1)) }}
                                         </div>
                                         <span style="font-weight:600;">{{ $p->nama }}</span>
                                     </div>
                                 </td>
-                                <td><code style="background:#f0eeff;color:#6C63FF;padding:2px 7px;border-radius:5px;font-size:.78rem;">{{ $p->username }}</code>
+                                <td><code style="background:#E6F2EA;color:#1F7A4D;padding:2px 7px;border-radius:5px;font-size:.78rem;">{{ $p->username }}</code>
                                     @if($p->status === 'nonaktif')<span class="badge bg-secondary ms-1" style="border-radius:6px;">Nonaktif</span>@endif
                                 </td>
                                 <td>
-                                    <span style="background:{{ $p->id_warung == auth()->user()->id_warung ? '#e8e6ff;color:#6C63FF' : '#f0f2f8;color:#7a809a' }};padding:2px 8px;border-radius:6px;font-size:.78rem;">
+                                    <span style="background:{{ $p->id_warung == auth()->user()->id_warung ? '#DDEFE4;color:#1F7A4D' : '#EEF1EE;color:#7B857F' }};padding:2px 8px;border-radius:6px;font-size:.78rem;">
                                         {{ $p->warung->nama_warung ?? '—' }}
                                     </span>
                                 </td>
                                 <td class="text-center">
                                     <a href="{{ route('pegawai.edit', $p->id_user) }}"
-                                       style="background:#e8e6ff;color:#6C63FF;padding:3px 10px;border-radius:7px;font-size:.75rem;font-weight:600;">Edit</a>
+                                       style="background:#DDEFE4;color:#1F7A4D;padding:3px 10px;border-radius:7px;font-size:.75rem;font-weight:600;">Edit</a>
                                     <a href="#" onclick="hapusPegawai('{{ route('pegawai.destroy', $p->id_user) }}','{{ addslashes($p->nama) }}')"
                                        style="background:#fff0f0;color:var(--danger);padding:3px 10px;border-radius:7px;font-size:.75rem;font-weight:600;margin-left:4px;">Hapus</a>
                                     <form method="POST" action="{{ route('pegawai.status', $p->id_user) }}" style="display:inline;">
@@ -154,8 +154,8 @@
                             </tr>
                         @empty
                             <tr><td colspan="5" class="text-center py-5">
-                                <i class="fas fa-users fa-2x mb-2 d-block" style="color:#c0c5d8;"></i>
-                                <span style="color:#7a809a;">Belum ada pegawai{{ !$semuaWarung ? ' di warung ini' : '' }}</span>
+                                <i class="fas fa-users fa-2x mb-2 d-block" style="color:#BFC8C2;"></i>
+                                <span style="color:#7B857F;">Belum ada pegawai{{ !$semuaWarung ? ' di warung ini' : '' }}</span>
                             </td></tr>
                         @endforelse
                     </tbody>
