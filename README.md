@@ -3,7 +3,7 @@
 Aplikasi web kasir untuk warung. Satu pemilik dapat mengelola beberapa warung, dan pegawai bertugas sebagai kasir.
 Dibuat sebagai Tugas Project mata kuliah **Cyber Security** (Pengembangan dan Pengamanan Aplikasi Web).
 
-- **URL aplikasi:** `[ISI: https://warungu.vercel.app]`
+- **URL aplikasi:** https://warungu.vercel.app
 - **Akun uji coba:** tercantum di laporan PDF (tidak ditulis di repository).
 
 ## Fitur
