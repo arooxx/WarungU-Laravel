@@ -3,7 +3,7 @@
 Aplikasi web kasir untuk warung. Satu pemilik dapat mengelola beberapa warung, dan pegawai bertugas sebagai kasir.
 Dibuat sebagai Tugas Project mata kuliah **Cyber Security** (Pengembangan dan Pengamanan Aplikasi Web).
 
-- **URL aplikasi:** `[ISI: https://nama-proyek.vercel.app]`
+- **URL aplikasi:** `[ISI: https://warungu.vercel.app]`
 - **Akun uji coba:** tercantum di laporan PDF (tidak ditulis di repository).
 
 ## Fitur
@@ -82,7 +82,11 @@ Contoh prompt utama:
 2. "coba pahami [proyek Laravel] ... untuk keamanannya lebih baik sedikit saja"
 3. "untuk langkah selanjutnya harus mikir dulu sebelum ngoding, sesimple mungkin, ubah yang diminta saja, tentukan tanda beres lalu kerjakan sampai lolos tes"
 
-Cara meninjau dan memverifikasi: `[ISI: jelaskan dengan jujur bagian mana yang kamu baca, jalankan, dan uji sendiri secara manual]`
+Cara meninjau dan memverifikasi:
+- Saya membaca kode autentikasi (`AuthController`), pemrosesan transaksi kasir (`KasirController::proses`), dan aturan password (`PasswordKuat`), dan saya dapat menjelaskan alurnya.
+- Saya menjalankan ulang pengujian keamanan secara manual di aplikasi: harga palsu lewat Console, akses pegawai ke /barang, login salah 6 kali, logout lewat URL, password lemah saat daftar.
+- Temuan dari AI saya periksa sendiri sebelum dipakai. 
+- Hal yang belum saya pahami sepenuhnya: saya belum sepenuhnya paham tetang laravel hanya mengerti dasar dasarnya saja semua ini di bantu oleh ai.
 
 ## Hasil self-testing keamanan
 
@@ -99,4 +103,4 @@ Uji otomatis dijalankan dengan permintaan HTTP sungguhan dan hasilnya dicek lang
 
 \* Sebagian skenario pada versi lama lolos hanya karena fiturnya belum ada. Rinciannya di berkas bukti.
 
-Verifikasi manual dan alat tambahan oleh mahasiswa: `[ISI: hasil securityheaders.com, SSL Labs, OWASP ZAP, composer audit, pemindaian rahasia di riwayat git]`
+
