@@ -42,8 +42,12 @@
                 <label class="form-label" style="font-weight:600;font-size:.84rem;">Password</label>
                 <div class="input-group">
                     <span class="input-group-text"><i class="fas fa-lock" style="font-size:.8rem;"></i></span>
-                    <input type="password" name="password" class="form-control"
-                           placeholder="Masukkan password" required>
+                    <input type="password" name="password" id="loginPassword" class="form-control"
+                           placeholder="Masukkan password" required autocomplete="current-password">
+                    <button type="button" id="togglePassword" class="btn btn-outline-secondary"
+                            aria-label="Tampilkan password" aria-pressed="false" title="Tampilkan password">
+                        <i class="fas fa-eye" id="togglePasswordIcon" aria-hidden="true" style="font-size:.85rem;"></i>
+                    </button>
                 </div>
             </div>
             <div class="mb-3 d-flex align-items-center gap-2" style="font-size:.83rem;">
@@ -63,5 +67,28 @@
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+(function () {
+    var input = document.getElementById('loginPassword');
+    var tombol = document.getElementById('togglePassword');
+    var ikon = document.getElementById('togglePasswordIcon');
+
+    function atur(tampil) {
+        input.type = tampil ? 'text' : 'password';
+        tombol.setAttribute('aria-pressed', tampil ? 'true' : 'false');
+        tombol.setAttribute('aria-label', tampil ? 'Sembunyikan password' : 'Tampilkan password');
+        tombol.title = tampil ? 'Sembunyikan password' : 'Tampilkan password';
+        ikon.className = 'fas ' + (tampil ? 'fa-eye-slash' : 'fa-eye');
+    }
+
+    // Fokus tetap di tombol agar pengguna keyboard dan pembaca layar mendengar status barunya.
+    tombol.addEventListener('click', function () {
+        atur(input.type === 'password');
+    });
+
+    // Saat halaman dimuat ulang dari riwayat (tombol Kembali), password kembali tersembunyi.
+    window.addEventListener('pageshow', function () { atur(false); });
+})();
+</script>
 </body>
 </html>
